@@ -1,4 +1,4 @@
-package hashmap;
+package HashMap;
 
 public class OurMapTest {
     public static void main(String [] args){

@@ -39,7 +39,7 @@ class AgeDescendingComparator implements Comparator<Student> {
     }
 }
 
-public class Main {
+public class ComparatorVSComparable {
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
         students.add(new Student(3, "Shubham", 24));

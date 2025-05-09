@@ -3,6 +3,7 @@ package Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Sets {
 
@@ -36,6 +37,7 @@ public class Sets {
         set1.clear();
         System.out.println("After using clear() in the set1 " + set1);
 
+        System.out.println("--------------------------------LINKED HASHSET---------------");
 //-------------------------------------LINKED HASHSET-------------------------------------
 
         Set<Integer> set3 = new LinkedHashSet<>();
@@ -50,7 +52,18 @@ public class Sets {
             System.out.print(x + ", ");
         }
 
-        
+        System.out.println();
+        System.out.println("--------------------------------TREESET---------------");
+//-------------------------------------TREESET-------------------------------------
+
+        Set<Integer> treeSet = new TreeSet<>();
+        treeSet.add(614);
+        treeSet.add(111);
+        treeSet.add(614);
+        treeSet.add(33);
+
+        for(int x : treeSet)
+            System.out.print(x + ", ");
 
     }
 }
