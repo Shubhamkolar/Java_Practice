@@ -1,0 +1,24 @@
+Sets:
+- A Set is a collection that does not allow duplicate elements. It models the mathematical set abstraction and is a part of java.util.
+
+Key Characteristics:
+- No duplicate elements allowed.
+- At most one null element (in most implementations).
+- Order is not guaranteed (depends on the implementation).
+- Ideal for checking existence or ensuring uniqueness of elements. 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+TYPES OF SET IMPLEMENTATIONS:
+
+HashSet         =>      Fast, does not maintain order. Uses a hashtable.
+linkedlist      =>      Maintains insertion order.
+TreeSet         =>      Sorted in natural order (or custom Comparator).
+                        Backed by a Red-Black tree.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Sets:
+- a.containsAll(b) (subset)
+- a.addAll(b) (union)
+- a.removeAll(b) (difference)
+- a.retainAll(b) (intersection)
+- a.clear() (empty set)
