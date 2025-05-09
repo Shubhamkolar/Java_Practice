@@ -3,6 +3,9 @@
 - Whenever you need a normal queue then use linkedlist because it implements Deque
 
 
+- Whenever you are using a HashSet or own CustomClass we have to override the equals() and hashCode() methods of the class otherwise the contains method will fail.
+
+
 
 FEATURE        |              COMPARABLE                |             COMPARATOR 
 ---------------|----------------------------------------|---------------------------------------

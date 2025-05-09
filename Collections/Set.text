@@ -22,3 +22,41 @@ Sets:
 - a.removeAll(b) (difference)
 - a.retainAll(b) (intersection)
 - a.clear() (empty set)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+LinkedHashSet:
+- LinkedHashSet is a class in java that implements the Set interface and is a prt of the Java Collection framework.
+- It combines the uniqueness of HashSet also maintains the insertion order of elements.
+
+Key Features:
+- No duplicates allowed- like all Sets.
+- Maintains insertion order
+- Permits one null element
+- Performance is slightly lower than HashSet because of the additonal overhead of maintaining the linked list
+
+Internal Working:
+- Internally backed by a hash table + doubly-linked list.
+- Each entry maintains a reference to the next and previous element in insertion order.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Sorted Set:
+- A SortedSet is a special type of Set in java that maintains elements in ascending order (natural ordering or via custom comparator).
+- It is a part of java.util.package and extends the Set interface.
+
+Key features:
+- Maintains ascending order of elements.
+- No duplicates elements allowed.
+- Provides methods to handle range views, like headSet(), tailSet(), and subSet().
+- null elements not  allowed if natural ordering is used. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+The NavigableSet interface:
+- Extends the SortedSet interface with navigation methods to find the closest matches for specific search targets.
+- By navigation, we mean operations that require searching for elements in the navigable set.
+- In the absence of elements, these operations return null rather than throw a NoSuchElementException.
+- In addition to the methods of the SortedSet interface, the NavigableSet interface adds the following new methods:
+// First-last elements              // Closest-matches
+E pollFirst()                       E ceiling(E e)              E higher(E e)
+E pollLast()                        E floor(E e)                E lower(E e) 
