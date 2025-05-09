@@ -1,0 +1,3 @@
+- Whenever you want any data sturucture which needs array/list then use arraylist.
+- Whenever you want to want FIFO order i.e. STACK then use always "ARRAYDEQUE" since its not a list and not randomly accessed based on their positions also they can't be sorted. 
+- Whenever you need a normal queue then use linkedlist because it implements Deque

@@ -1,0 +1,16 @@
+List Iterator:
+interface ListIterator<E> extends Iterator<E>
+{
+    boolean hasNext();
+    boolean hasPrevious();
+    E next(); // Element after the cursor
+    E previous(); // Element before the cursor
+}
+
+List Provides two methods
+    - ListIterator<E> listIterator()
+    - ListIterator<E> listIterator(int index)
+
+- The ListIterator interface is a bidirectional iterator for lists.
+- It extends the Iterator interface and allows the list to be traversed in either direction using the next() and prev().
+- This is used in LinkedList collection.
