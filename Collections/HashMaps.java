@@ -2,7 +2,9 @@ package Collections;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
 
 public class HashMaps {
     public static void main(String[] args) {
@@ -39,6 +41,26 @@ public class HashMaps {
 
 // LinkedHashMap is just get the ordering elements and implement the same methods. 
 
+        System.out.println("--------------------------------------------------------");
+// ------------------------------------------------------NavigableMap--------------------------------------------------------
+
+        NavigableMap<Integer, String> tmap = new TreeMap<>();
+//      NavigableMap<Integer, String> tmap = new TreeMap<>((a, b) -> b - a); for descending order use this way
+        tmap.put(11, "Om");
+        tmap.put(1, "Ketan");
+        tmap.put(99, "Rohya");
+
+        System.out.println("Tree map shows output as " + tmap); // Natural ordering (asceding order)
+        
+        Set<Map.Entry<Integer, String>> eSet = tmap.entrySet();
+        for(Map.Entry<Integer, String> entry : eSet)
+            System.out.println(entry.getKey() + ", " + entry.getValue());
+
+        System.out.println(tmap.pollFirstEntry());
+        System.out.println(tmap.pollLastEntry());
+
+        };
+
     }
     
-}
+
