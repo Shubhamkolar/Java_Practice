@@ -48,3 +48,44 @@ IMPLEMENTATION OF MAPS
 - Traversal of a map is through one of its collection-views. For an underlying LinkedHashMap, the traversal time is proportional to the size of the map-regardless of its capacity.
 
 
+-----------------------------------------------------------------------------------------------------------------
+Sorted Map:
+- The SortedMap and NavigableMap interfaces are the analogs of the SortedSet and the NavigableSet interfaces, respectively.
+- The SortedMap interface extends the Map interface to provide the functionality for implementing maps with sorted keys.
+  Its operations are analogous to those of the SortedSet interface. 
+- SortedMap interface Methods:
+  K firstKey() Sorted set: first()
+  K lastKey() Sorted set: last()
+
+
+-----------------------------------------------------------------------------------------------------------------
+NavigableMap: 
+- NavigableMap interface extends the SortedMap interface with navigation methods to find the closet matches for specific targets.
+- In addition to the methods of the SortedMap interface, the NavigableMap interface adds the new methods, analogous to the 
+  NavigableSet interface.
+- First-last elements
+  Map.Entry<K, V> pollFirstEntry() Navigable set: pollFirst()
+  Map.Entry<K, V> pollLastEntry() Navigable set: pollLast()
+  Map.Entry<K, V> firstEntry()
+  Map.Entry<K, V> lastEntry()
+
+Closest-Matches:
+  Map.Enty<K, V> ceilingEntry<K key> Navigable set: ceiling()  
+  K ceilingKey(K key)
+  Map.Entry<K, V> floorEntry(K key) Navigable set: floor()
+  K floorKey(K key)
+  Map.Entry<K, V> higherEntry(K key) Navigable set: higher()
+  K higherKey(K key)
+  Map.Entry<K, V> lowerEntry(K key) Navigable set: lower()
+  K lowerKey(K key)
+
+
+-----------------------------------------------------------------------------------------------------------------
+TreeMap:
+- The TreeMap class implements the NavigableMap interface, and thereby the SortedMap interface
+- By default, operations on sorted maps rely on the natural ordering of the keys.
+- However, a total ordering can be specified by passing a customized comparator to the constructor.
+- The TreeMap implementation uses balanced trees, which deliver excellent performance for all operations.
+- However, searching in a HashMap can be faster than in a TreeMap, as hashing algorithms usually offer better
+  performance than the search algorithms for balanced trees.
+  
