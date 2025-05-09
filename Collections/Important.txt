@@ -1,3 +1,17 @@
 - Whenever you want any data sturucture which needs array/list then use arraylist.
 - Whenever you want to want FIFO order i.e. STACK then use always "ARRAYDEQUE" since its not a list and not randomly accessed based on their positions also they can't be sorted. 
 - Whenever you need a normal queue then use linkedlist because it implements Deque
+
+
+
+FEATURE        |              COMPARABLE                |             COMPARATOR 
+---------------|----------------------------------------|---------------------------------------
+Method         |         compareTo(Object o)            |     compare(Object o1, Object o2)
+Purpose        |            Natural Ordering            |           Custom Ordering         
+How to use     |      Implemented in the class itself   |        Used outside the class
+Sorting logic  |       Single sorting rule per class    |     Multiple sorting logics possible
+
+Q: When would you use Comparator over Comparable?
+=> When I need multiple sorting strategies or can’t modify the class I want to sort, I use Comparator. 
+   If there’s a single natural sorting logic, I implement Comparable.
+
