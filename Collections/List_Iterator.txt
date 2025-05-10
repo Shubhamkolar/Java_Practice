@@ -1,4 +1,4 @@
-# List Iterator:
+List Iterator:
 interface ListIterator<E> extends Iterator<E>
 {
     boolean hasNext();
@@ -7,7 +7,7 @@ interface ListIterator<E> extends Iterator<E>
     E previous(); // Element before the cursor
 }
 
-## List Provides two methods
+List Provides two methods
     - ListIterator<E> listIterator()
     - ListIterator<E> listIterator(int index)
 

@@ -1,4 +1,4 @@
-# Map:
+Map:
 - A Map defines mappings from keys to values.
 - The <key, value> pair is called an entry.
 - A map does not allow duplicates keys, in other words, the keys are unique.
@@ -6,7 +6,7 @@
 - A map is not a collection and the Map interface does not extend the Collection interface.
 - However, the mappings can be viewed as a collection in various ways: a key set, a value collection, or an entry set. 
 
-## Map Interface Methods:
+Map Interface Methods:
 - Object put(K key, V value)
 - Object get(Object key)
 - Object remove(Object key)
@@ -15,7 +15,7 @@
 - int size()
 - boolean isEmpty()
 
-## Bulk Operations:
+Bulk Operations:
 - void putAll(Map<? extends K, ? extends V> map)
 - void clear()
 - Set <K> keySet()
@@ -33,7 +33,7 @@ interface Entry<K, V>{
 - An entry in the entry set view can be manipulated by methods defined in this interface. 
 
 -----------------------------------------------------------------------------------------------------------------
-# IMPLEMENTATION OF MAPS 
+IMPLEMENTATION OF MAPS 
 - The classes HashMap and Hashtable implement unordered maps. The class LinkedHashMap implements ordered maps.
 - The class TreeMap implements sorted maps.
 - While the HashMap class is not thread-safe and permits one null key, the Hashtable class is thread-safe and permits non-null keys and values only.
@@ -49,7 +49,7 @@ interface Entry<K, V>{
 
 
 -----------------------------------------------------------------------------------------------------------------
-# Sorted Map:
+Sorted Map:
 - The SortedMap and NavigableMap interfaces are the analogs of the SortedSet and the NavigableSet interfaces, respectively.
 - The SortedMap interface extends the Map interface to provide the functionality for implementing maps with sorted keys.
   Its operations are analogous to those of the SortedSet interface. 
@@ -59,7 +59,7 @@ interface Entry<K, V>{
 
 
 -----------------------------------------------------------------------------------------------------------------
-# NavigableMap: 
+NavigableMap: 
 - NavigableMap interface extends the SortedMap interface with navigation methods to find the closet matches for specific targets.
 - In addition to the methods of the SortedMap interface, the NavigableMap interface adds the new methods, analogous to the 
   NavigableSet interface.
@@ -81,7 +81,7 @@ Closest-Matches:
 
 
 -----------------------------------------------------------------------------------------------------------------
-# TreeMap:
+TreeMap:
 - The TreeMap class implements the NavigableMap interface, and thereby the SortedMap interface
 - By default, operations on sorted maps rely on the natural ordering of the keys.
 - However, a total ordering can be specified by passing a customized comparator to the constructor.

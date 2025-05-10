@@ -1,4 +1,4 @@
-# Queues:
+Queues:
 The Queue interface extends the Collection interface with the following methods:
     - boolean add(E element)
     - boolean offer(E element)
@@ -16,7 +16,7 @@ no such element exception and returns null if the queue is empty or you have run
 Always better to use peek() to get an current element.
 
 ===========================================================================================================================================
-# Deque: 
+Deque: 
 - The Deque interface extends the Queue interface to allow double-ended queues. 
 - It follows FIFO
 - Elements can be inserted at or removed from either end.
@@ -45,7 +45,7 @@ Examine Elements:
 - E getLast()
 
 ===========================================================================================================================================
-# Priority Queue:
+Priority Queue:
 - Priority queue works on Priority
 - The implementation is based on a priority heap, a tree like structure that yields an elemnent at the head of the queue according to the Priority
   ordering, which is defined either by the natural ordering of its elements or by a comparator.
