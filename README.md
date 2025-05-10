@@ -1,3 +1,8 @@
 # Java_Practice
 
-This repository contains clean, commented, and well-organized implementations and examples of the Java Collections Framework, Concurrency and Multithreading. It's designed for learning, revision, and interview preparation.
+This repository contains **clean**, **commented**, and **well-organized** implementations of:
+
+1. Java Collections Framework  
+2. Concurrency and Multithreading
+
+It is designed for **learning**, **revision**, and **interview preparation**.
