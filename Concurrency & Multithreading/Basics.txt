@@ -1,0 +1,12 @@
+Multitasking:
+Multitasking allows several activities to occur concurrenctly on the computer.
+- Process-based Multitasking
+- Thread-based Multitasking
+
+Process Based Multitasking:
+Allows processes (i.e. programs) to run concurrenlty on the computer.
+Eg: Running the Ms Paint while also working with the word processor.
+
+Thread Based Multitasking:
+Allows parts of the same program to run concurrently on the computer.
+Eg: Ms Word that is printing and formatting text at the same time. 
