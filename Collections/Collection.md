@@ -1,4 +1,5 @@
 A collection allows a group of objects to be treated as a single unit.
+
 The Java Collection Framework provides a set of standard utility classes for managing
 various kinds of collections. The core framework is provided in the java.util package 
 and comprises three main parts:
@@ -10,7 +11,7 @@ and comprises three main parts:
    creating customized collections.
 
 
-CORE INTERFACES:
+# CORE INTERFACES:
 The Collection interface extends the Iterable interface that specifies an iterator to
 sequentially access the elements of an Iterable object.
 

@@ -1,4 +1,4 @@
-Understand the key interfaces:
+# Understand the key interfaces:
 
 | Interface    | Description                                                       |
 | ------------ | ----------------------------------------------------------------- |
@@ -9,7 +9,7 @@ Understand the key interfaces:
 | Queue        | FIFO or priority-based access (`Queue`, `PriorityQueue`, `Deque`) |
 
 
-When to Use What?
+# When to Use What?
 
 | Collection Type   | Best When You Need                      |
 | ----------------- | --------------------------------------- |
@@ -24,22 +24,22 @@ When to Use What?
 
 
 
-ArrayList vs LinkedList
+# ArrayList vs LinkedList
 ArrayList: Faster for get/set
 LinkedList: Faster for insert/delete at head or tail
 
 
-HashSet vs TreeSet
+# HashSet vs TreeSet
 HashSet: Unordered, faster (uses hashing)
 TreeSet: Ordered (sorted), slower (uses Red-Black tree)
 
 
-HashMap vs TreeMap vs LinkedHashMap
+# HashMap vs TreeMap vs LinkedHashMap
 HashMap: Unordered
 TreeMap: Sorted by keys
 LinkedHashMap: Maintains insertion order
 
 
-Comparable: Natural sorting (implement compareTo)
+# Comparable: Natural sorting (implement compareTo)
 Comparator: Custom sorting logic
 

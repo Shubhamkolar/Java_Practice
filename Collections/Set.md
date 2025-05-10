@@ -1,4 +1,4 @@
-Sets:
+# Sets:
 - A Set is a collection that does not allow duplicate elements. It models the mathematical set abstraction and is a part of java.util.
 
 Key Characteristics:
@@ -7,24 +7,24 @@ Key Characteristics:
 - Order is not guaranteed (depends on the implementation).
 - Ideal for checking existence or ensuring uniqueness of elements. 
 
-----------------------------------------------------------------------------------------------------------------------------------------------
-TYPES OF SET IMPLEMENTATIONS:
+-------------------------------------------------------------------------------------------------------------------------------------------
+# TYPES OF SET IMPLEMENTATIONS:
 
 HashSet         =>      Fast, does not maintain order. Uses a hashtable.
 linkedlist      =>      Maintains insertion order.
 TreeSet         =>      Sorted in natural order (or custom Comparator).
                         Backed by a Red-Black tree.
 
-------------------------------------------------------------------------------------------------------------------------------------------------
-Sets:
+-------------------------------------------------------------------------------------------------------------------------------------------
+# Sets:
 - a.containsAll(b) (subset)
 - a.addAll(b) (union)
 - a.removeAll(b) (difference)
 - a.retainAll(b) (intersection)
 - a.clear() (empty set)
 
--------------------------------------------------------------------------------------------------------------------------------------------------
-LinkedHashSet:
+-------------------------------------------------------------------------------------------------------------------------------------------
+# LinkedHashSet:
 - LinkedHashSet is a class in java that implements the Set interface and is a prt of the Java Collection framework.
 - It combines the uniqueness of HashSet also maintains the insertion order of elements.
 
@@ -34,14 +34,14 @@ Key Features:
 - Permits one null element
 - Performance is slightly lower than HashSet because of the additonal overhead of maintaining the linked list
 
-Internal Working:
+## Internal Working:
 - Internally backed by a hash table + doubly-linked list.
 - Each entry maintains a reference to the next and previous element in insertion order.
 
 
 
---------------------------------------------------------------------------------------------------------------------------------------------------
-Sorted Set:
+-------------------------------------------------------------------------------------------------------------------------------------------
+# Sorted Set:
 - A SortedSet is a special type of Set in java that maintains elements in ascending order (natural ordering or via custom comparator).
 - It is a part of java.util.package and extends the Set interface.
 
@@ -51,8 +51,8 @@ Key features:
 - Provides methods to handle range views, like headSet(), tailSet(), and subSet().
 - null elements not  allowed if natural ordering is used. 
 
---------------------------------------------------------------------------------------------------------------------------------------------------
-The NavigableSet interface:
+-------------------------------------------------------------------------------------------------------------------------------------------
+# The NavigableSet interface:
 - Extends the SortedSet interface with navigation methods to find the closest matches for specific search targets.
 - By navigation, we mean operations that require searching for elements in the navigable set.
 - In the absence of elements, these operations return null rather than throw a NoSuchElementException.

@@ -7,7 +7,7 @@
 
 
 
-FEATURE        |              COMPARABLE                |             COMPARATOR 
+# FEATURE      |             # COMPARABLE               |            # COMPARATOR 
 ---------------|----------------------------------------|---------------------------------------
 Method         |         compareTo(Object o)            |     compare(Object o1, Object o2)
 Purpose        |            Natural Ordering            |           Custom Ordering         
