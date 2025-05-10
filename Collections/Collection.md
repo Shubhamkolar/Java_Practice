@@ -15,5 +15,26 @@ and comprises three main parts:
 The Collection interface extends the Iterable interface that specifies an iterator to
 sequentially access the elements of an Iterable object.
 
-          <pre> ``` <interface> java.lang.Iterable<E> | | <interface> Collection<E> | | ------------------------------------ | | | <interface> <interface> <interface> <interface> List<E> Queue<E> Set<E> Map<K, V> | | | | | | <interface> <interface> <interface> Deque<E> SortedSet<E> SortedMap<K, V> | | | | <interface> <interface> NavigableSet<E> NavigableMap<K, V> ``` </pre>
+<pre>
+            <interface>
+        java.lang.Iterable<E>
+                |
+                |
+            <interface>
+            Collection<E>
+                |
+                |
+      ------------------------------------
+      |               |                  |
+      |               |                  |
+ <interface>        <interface>        <interface>          <interface>
+    List<E>            Queue<E>               Set<E>                  Map<K, V>
+                      |                  |                     |    
+                      |                  |                     |
+                  <interface>        <interface>           <interface>
+                    Deque<E>           SortedSet<E>               SortedMap<K, V>       
+                                         |                     |
+                                         |                     |
+                                    <interface>            <interface>
+                                     NavigableSet<E>         NavigableMap<K, V>  </pre>
                 
