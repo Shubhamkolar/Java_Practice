@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-// public class ComparatorVSComparable {
-
 class Student implements Comparable<Student> {
     int rollNo;
     String name;
