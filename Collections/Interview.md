@@ -25,21 +25,21 @@
 
 
 # ArrayList vs LinkedList
-ArrayList: Faster for get/set
-LinkedList: Faster for insert/delete at head or tail
+ArrayList: Faster for get/set  
+LinkedList: Faster for insert/delete at head or tail  
 
 
 # HashSet vs TreeSet
-HashSet: Unordered, faster (uses hashing)
-TreeSet: Ordered (sorted), slower (uses Red-Black tree)
+HashSet: Unordered, faster (uses hashing)  
+TreeSet: Ordered (sorted), slower (uses Red-Black tree)  
 
 
 # HashMap vs TreeMap vs LinkedHashMap
-HashMap: Unordered
-TreeMap: Sorted by keys
-LinkedHashMap: Maintains insertion order
+HashMap: Unordered  
+TreeMap: Sorted by keys  
+LinkedHashMap: Maintains insertion order  
 
 
 # Comparable: Natural sorting (implement compareTo)
-Comparator: Custom sorting logic
+# Comparator: Custom sorting logic
 
