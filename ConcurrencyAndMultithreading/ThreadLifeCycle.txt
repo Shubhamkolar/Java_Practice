@@ -1,0 +1,40 @@
+| Stage              | Code Line            | Description                              |
+| ------------------ | -------------------- | ---------------------------------------- |
+| NEW                |  new MyThread()      | Thread is created but not yet started    |
+| RUNNABLE           |  thread.start()      | Thread is ready to run or running in CPU |
+| TIMED\WAITING      |  Thread.sleep(2000)  | Thread is sleeping (not consuming CPU)   |
+| RUNNING            |  Wakes up from sleep | Actively executing again                 |
+| TERMINATED         |  Ends run() method   | Thread has finished execution            |
+
+
+
+- start() transitions the thread from NEW → RUNNABLE
+- sleep() puts it in TIMED_WAITING
+- Once run() completes, thread becomes TERMINATED
+
+
+
+Key Points on Concurrency:
+
+1. Thread Lifecycle
+   NEW → RUNNABLE → RUNNING → WAITING/TIMED_WAITING → TERMINATED
+
+2. Race Conditions
+   Occur when two threads access shared data simultaneously.
+   Prevent with synchronized, volatile, or atomic classes.
+
+3. Volatile Keyword
+   Guarantees visibility, not atomicity.
+   Useful for flags like isRunning, stop, etc.
+
+4. Executor Framework
+   Use Executors for better thread management.
+   E.g., ExecutorService, ThreadPoolExecutor
+
+5. wait(), notify(), notifyAll()
+   Must be called inside a synchronized block.
+   Used for communication between threads on the same object monitor.
+
+6. Thread.sleep()
+   Puts a thread into TIMED_WAITING state.
+   Doesn’t release the lock (unlike wait()).

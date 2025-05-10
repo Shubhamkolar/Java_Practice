@@ -1,0 +1,9 @@
+Q: When should you extend the Thread class and when should you implement the Runnable interface?
+=> In most cases, it is recommended to implement the Runnable interface rather than extending the Thread class. This is because:
+
+1. Java does not support multiple inheritance of classes. So, if you extend the Thread class, your class cannot extend any other class, which can be a limitation.
+2. By implementing Runnable, you separate the task (logic) from the execution mechanism (the Thread class), which follows better design principles like separation of concerns.
+3. It also promotes code reusability and makes your class more flexible and testable.
+
+Extend the Thread class only when you need to override methods in the Thread class or need more control over thread behavior, which is rare.
+

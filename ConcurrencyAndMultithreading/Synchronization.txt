@@ -1,0 +1,49 @@
+Synchronization:
+- Threads share the same memory space, i.e. they can share resources (objects)
+- However, there are critical situations where it is desirable that only one 
+  thread at a time has access to a shared resource. 
+   
+- We can use Synchronized keyword for either the entire method or a block of code
+- When used with a block of code then we need to explicitly pass the lock
+- When you declare a method with the synchronized keyword in Java, the lock(monitor) is automatically acquired on a specific object.
+
+
+public synchronized void print() {  |   public void print (){
+    // code                         |       synchronized(this){
+}                                   |       // code
+                                    |       }
+                                    |   }
+
+Synchronization Methods:
+- While a thread is inside a synchronized method of an object, all other threads that wish to execute this synchronized method or any other
+  threads wish to execute this synchronized method or any other synchronized method of the object will have to wait.
+- This restriction does not apply to the thread that already has the lock and is executing a synchronized method of the object.
+- Such a method can invoke other synchronized methods of the object without being blocked.
+- The non-synchronized methods of the object can always be called at any time by any thread.
+
+
+Rules of Synchronization:
+- A thread must aquire the object lock associated with a shared resource before it can enter the shared resource.
+- The runtime system ensures that no other thread can enter a shared resource if another thread already holds the object lock associated with it.
+- If a thread cannot immediatedly acquire the object lock, it is blocked, i.e., it must wait for the lock to become available.
+- When a thread exits a shared resource, the runtime system ensures that the object lock is also relinquished. If another thread is waiting for this object lock,
+  it can try to acquire the lock in order to gain access to the shared resource. 
+- It should bemade clear that programs should not make any assumptions about the order in which threads are granted ownership of a lock.
+
+
+Static Synchronized Methods:
+- A thread acquiring the lock of a class to execute a static synchronized method has no effect on any thread acquiring the lock on any object of the class to execute
+  a synchronized instance method.
+- In other words, synchronization of static methods in a class is independent from the synchronization of instance methods on objects of the class.
+- A subclass decides whether the new definition of an inherited synchronization method will remain synchronized in the subclass.
+
+
+Race Condition:
+- It occurs when two or more threads simultaneously update the same value and, as a consequence, leave the value in an undefined or inconsistent state.
+
+
+Thread Safety:
+- It's the term used to describe the design of classes that ensure that the state of their objects is always consistent, even when the objects are used 
+  concurrently by multiple threads. Eg StringBuffer
+
+
