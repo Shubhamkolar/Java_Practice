@@ -4,7 +4,7 @@
 3. Each elements are positioned based, starting from index 0.
 
 ## List Methods:
-// E stands for retrun type (any type) its just a placeholder for anytype.
+ E stands for retrun type (any type) its just a placeholder for anytype.
 1. E get(int index)
 2. E set(int index, E element)
 3. void add(int index, E element)
