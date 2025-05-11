@@ -7,3 +7,15 @@ Q: When should you extend the Thread class and when should you implement the Run
 
 Extend the Thread class only when you need to override methods in the Thread class or need more control over thread behavior, which is rare.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+A. wait()
+The wait() method is used to pause the current thread and release the lock it holds, allowing other threads to execute. It is typically used in synchronization contexts, not for waiting for a thread to finish.
+
+B. join()
+The join() method is used to make the current thread wait until the thread on which join() is called has finished executing. For example, thread.join() will cause the current thread to wait for the specified thread (thread) to complete before continuing execution.
+
+C. sleep()
+The sleep() method makes the current thread pause for a specified amount of time, but it does not wait for a thread to finish. It simply causes the thread to sleep for a certain period.
+
+D. stop()
+The stop() method is deprecated and was used to forcefully terminate a thread. It's not used to wait for a thread to finish, and using it can lead to unsafe behavior.
