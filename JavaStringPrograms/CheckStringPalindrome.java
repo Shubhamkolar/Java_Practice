@@ -25,9 +25,9 @@ public class CheckStringPalindrome{
         sc.close();
 
 
-        System.out.println("----------------------Checking the number is Palindrome or not?----------------------");
+        System.out.println("----------------Checking the number is Palindrome or not?--------------");
 //  A program to check if a number is Palindrome or Not?    
-        int number = 1221;  
+        int number = 31221;  
         int org = number;   // Store the original number for later comparison
         int reverse = 0;    // Variable to store the reversed numbers
 
