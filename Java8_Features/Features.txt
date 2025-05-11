@@ -1,0 +1,39 @@
+Q. What are the new features were added in Java 8?
+=> Java 8 added many new features and enhancements but the most significant are the following:
+
+- Lambda Expressions
+- Method References
+- Optional
+- Functional Interface
+- Default methods
+- Stream API
+- Date and Time API
+
+Q. What is a Lambda Expression?
+- In a very simple terms, a lambda expressions is a function that can be referenced and passed around as an object. 
+- Lambda expressions introduct functional style processing in Java.
+- Lambda expressions are a natural replacement for anonymous classes as method arguments.
+- One of the main uses is to define inline implementations of functional interfaces.
+
+Q. Why use Lambda Expression?
+- To provide the implementation of the Java 8 Functional Interface.
+- Less coding.
+
+Q. what is a functional interface?
+- An interface that contains exactly one abstract method is know as a functional interface. 
+- It can have any number of default, static methods but can contain only one abstract method. It can also declare methods of the object class.
+- Functional Interface is also known as Single Abstract Method Interfaces or SAM interfaces. 
+- Java 8 provides predefined functional interfaces to deal wih functional programming by using lamba and method references. 
+
+Q. Describe some of the functional interfaces in the standard library.
+=> 
+- Function: It takes one argument and returns a result.
+- Consumer: It takes one argument and returns no result.
+- Supplier: It takes not argument and returns a result.
+- Predicate: It takes one argument and returns a boolean.
+- Bifunctional: It takes two arguments and returns a result.
+
+Q. What is method reference?
+- Method reference is used to refer method of the functional interface. It is a compact and easy form of a lambda expression. 
+- ex. Object::toString();
+- A method reference can be identified by a double colon.
