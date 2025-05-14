@@ -1,0 +1,14 @@
+What is Stream?
+- We can consider Stream as a pipeline, through which our collection elements passes through.
+- While elements passes through piplines, it performs various operations like sorting, filtering, etc.
+- Useful when deals with bulk processin. (can do parallel processing)
+
+It follows 3 steps:
+STEP 1. Streams are created from the data source like collection or array etc. 
+STEP 2. We can add one or more "Intermediate Operations" like: filter(), sorted(), map(), distinct(), etc.. are used.
+        -These operations transform the stream into another stream and more operations get executed only when terminal operation is invoked.
+STEP 3. Terminal Operations: You can use only one of them. As soon as the terminal operation is envoked means you'll get the result. You cannot add any
+        more operations after this. You'll get the result and close the Stream. 
+        - Terminal Operations like: collect(), reduce(), count() etc.. are used
+        - These operations triggers the processing of the stream.
+        - And produce the output. Means after the terminal operation used, no more operation we can perform.  
