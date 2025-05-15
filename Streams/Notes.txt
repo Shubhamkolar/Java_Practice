@@ -11,4 +11,10 @@ STEP 3. Terminal Operations: You can use only one of them. As soon as the termin
         more operations after this. You'll get the result and close the Stream. 
         - Terminal Operations like: collect(), reduce(), count() etc.. are used
         - These operations triggers the processing of the stream.
-        - And produce the output. Means after the terminal operation used, no more operation we can perform.  
+        - And produce the output. Means after the terminal operation used, no more operation we can perform.     
+         
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                 Different ways to create a stream:
+
+1. From Collection:
+   List<Integer> salaryList = Arrays.asList(100, 200, )

@@ -1,0 +1,133 @@
+- It's a Java library, which helps to reduct the boilerplate code using annotations.
+- During compilation, it process the annotation and inject code into our java classes.
+- Lombok is compatible with Java starting from Java 6 and supports all later versions.
+
+import lombok.val;
+public class LombokTest{
+    public static void main(String args[]){
+        val temp = "Hello";  // This line will be showing error (red underline)
+        System.out.println(temp);
+    }
+}
+// But IntelliJ is showing compilation error and if I try to run the same code its working totally fine. It'll show compilation error
+   even though it'll run properly since we have used the dependency. Lombok will add the code during the complie time. 
+   It'll properly change val to string during compile time but our IDE don't know that. 
+
+----------------------------------------------TOP 10 frequently used LOMBOK features-----------------------------------------------------------
+1. val and var
+- Instead of actually writing the type, we can use these as the type of local variable declaration. 
+- Type will be inferred from the initializer expression.
+
+Note: Only works for local variables (not for any fields or parameters)
+    val: marks local variable immutable (variable made final)
+    var: local variable not marked as final.
+
+
+2. @NonNull
+- Generates a null check statement. And throws NPE if nalue is NULL.
+- Can be used on parameters of a method or constructor.
+
+- After compiling the code .java file will be added more code as mentioned below:
+- It'll add the code after compilation by lombok.
+
+                    .java                                                                        .class
+
+import lombok.NonNull;                                                     import lombok.NotNull;
+public class NonNullExample{                                               public class NonNullExample{                                                       
+    public void demo(@NonNull String name){                                      public NonNullExample(){
+                                                                                }                      
+        System.out.println(name);                                                public void demoMethod(@NonNull String name){
+    }                                                   ======>                  if(name == null){
+}                                                                                     throw new NullPointerException("name is marked non-null but is null");
+                                                                                 }else{
+                                                                                      System.out.println(name);
+                                                                                }
+                                                                            }
+
+
+3. Getters and Setters
+- We can annotate any field with @Getter or @Setter to let lombok generate the default getter and setter methods. 
+
+        .java                                                                           .class
+
+import lombok.Getter;                                                public class TestPojo{
+import lombok.Setter;                                                     String name;
+                                                                          boolean committeeMember;
+public class TestPojo{                                                    
+                                        wil be converted to                public TestPojo(){
+    @Getter @Setter                 =========================>              }
+    String name;                                                           public String getName(){
+                                                                                return this.name;
+    @Getter @Setter                                                         }
+    boolean committeeMember;                                                public void setName(final String name){
+}                                                                                this.name = name;
+                                                                            }
+                                                                            public boolean isCommitteeMember(){
+                                                                                return this.committeeMember;
+                                                                            }
+                                                                            public void setCommitteeMember(final boolean committeeMember){
+                                                                                this.committeeMember = committeeMember;
+                                                                            }
+
+// By default, generated getters/setters methods are public, but we can also control it.
+// We can use
+    @Getter(AccessLevel.PRIVATE) @Setter(AccessLevel.PROTECTED) 
+    String name;
+
+- We can also use this Annotations at class level too, then:
+    - @Getter annotation will be applied to all non-static fields.
+    - And @Setter method annotation is applied to all non-static and non-final fields.
+
+- While using annotation at class level, if we want to skip the default generation for any field, we can do that by using AccessLevel.NONE. 
+- When you use this annotation at class level then it's like it'll be applied to all the fields but you can also control at very granual level.
+  You have to use this for all the fields but you can control by overriding it. 
+
+
+4. @ToString
+- Used to generate "toString()" method.
+- Class name followed by parenheses containing fields (non-static) seperated by commas.
+- We can also exclue the fields by using @ToString.Exclude annotation.
+- If you want to skip the field name then use @ToString(includeFieldNames = false)
+
+
+5. @NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor
+- @NoArgsConstructor: generates no-arg constructor
+- @AllArgsConstructor: generates constructor will all fields.
+- @RequiredArgsConstructor: generates constructor with only final and @NonNull fileds.
+
+
+6. @EqualsAndHashCode
+- We can use Lombok to generate this code for us. 
+- By default, it uses all non-static and non-transient fields.
+
+
+7. @Data 
+- Its a shortcut for all these:
+    @ToString
+    @EqualsAndHashCode
+    @Getter on all fields
+    @Setter on all non-final fields.
+    @RequiredArgsConstructor
+- It'll generate all the code by just using @Data and the code for above lombok annotations will be generated.
+
+
+8. @Value
+- immutable version on @Data
+- All fields are made "private" and "final".
+- Settes are not generated.
+- Class itself made final.
+- Like @Data, toString, Equal and HashCode method generated.
+- @Getter on all fields.
+- @RequiredArgsConstructor (since all fields are final, constructor with all fields will get generated, so its equivalent to @AllArgsConstructor)
+
+
+10. @Builder
+- It can be used for two things:
+    - Create objects parts by parts.
+    - Helps to create objects immutable.
+- It'll generate a Builder class for you
+
+
+11. @Cleanup
+- It ensures that given resource is automatically cleaned up before execution path exits the current scope.
+- .class file will be automatically generated the code for try,catch block and will close the resource automatically. 
