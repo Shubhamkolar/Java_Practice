@@ -1,0 +1,397 @@
+There might be questions raise such as:
+1. What's the criteria of putting these interfaces at this specific place? Why Queue and PriorityQueue not included into it?
+2. Why exactly these interfaces required? What was the gap which earlier it couldn't satisfy?
+3. Why SequencedSet is needed? Why not only SequencedCollection is sufficient for those collection group?
+
+-- Collection should follow predictable interation, means elements are returned in consistent and well defined order every time we iterate over the collection.
+   So if a collection maintains elements in:
+        - Insertion order, or
+        - Sorted order (e.g., ascending or descending)
+   Then we can say, it follows Predictable iteration. 
+   ex. 1, 2, 3  =>  3, 2, 1
+
+-- Collection provide support for Access or Manipulate the First and last element. Means you can add, fetch or remove the element at first place or similarly at last position.
+
+-- Collection supports Reversible View. Means is it poosible to get the reverse view of the collection, i.e., 1, 3, 4, 5  => 5, 4, 3, 1. 
+   Not creating new collection, underground collection is same only getting the view of it. If we are changing somewhere it'll change the underground collection too. 
+
+----------------------------------------------------- If all these conditions are satisfied then that collection is termed as Sequenced -----------------------------------------------------
+
+So the following collections supports Sequenced:
+
+1. List:
+        - It supports Insertion Order, The way you insert the record into the collection, it'll follow that only and whenever you'll fetch you'll get it consistently. 
+        - You can also access and fetch the first and last element.
+            Access: 
+                    list.get(0);                // first
+                    list.get(list.size()-1);    // last  
+
+            Add:    
+                    list.add(0, element);       // first
+                    list.add(element);          // end
+
+            Remove:
+                    list.remove(0);             // first
+                    list.remove(list.size()-1); // last
+
+        - List can also be revered such as:
+            List<String> list = new ArrayList<>(List.of("a", "b", "c"));
+            Collections.reverse(list);
+============================================ So all these conditions are satisfied so "List is said to be a part of SequencedCollection"============================================
+
+2. Deque:
+        - It follows Insertion Order. 
+        - You can also access and manipulate the elements.
+            Access: 
+                    deque.getFirst();
+                    deque.getLast();
+            
+            Add:
+                    deque.addFirst(element);
+                    deque.addLast(element);
+            
+            Remove:
+                    deque.removeFirst();
+                    deque.removeLast();
+        
+        - There is also a reverse method in deque as:
+          Deque<Integer> revDeque = deque.reversed();
+
+============================================ So all these conditions are satisfied so "Dequeue is said to be a part of SequencedCollection"============================================
+
+3. Queue:
+        - It follows Insertion Order so Predictable iteration is satisfied. 
+        - Since Queue follow FIFO, Insertion at back and remove from front. You cannot access the last element also can't add element from first.
+        - You cannot also access and manipulate the elements.
+            Access: 
+                    queue.peek();               // return head (allowed)
+                    Access last element -       // (not allowed)
+            
+            Add:
+                    Add element at first -      // (not allowed)
+                    queue.add(element);         // add to tail (allowed)
+            
+            Remove:
+                    queue.poll();               // removes head
+                    Remove last element -       // (not allowed)
+         
+        - You cannot reverse a queue directly
+        - So Queue don't support the above 2 conditions and so "not a part" of any SequencedCollection.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    
+4. PriorityQueue:
+        - It don't follow either Insertion order or Sorted Order since internally it uses Heap. 
+        - It only guarantees the head is either minimum or maximum element, depending on the comparator which we are using.  
+        - But the iteration order is not properly sorted or consistent and so order is not maintained.
+        - We can't add/remove the First and last element, if the order is not maintained reversal is not applicable itself and not supported.
+        - If order is preserved then only you can access or get the element from first or last index. Since if order is not maintained then 
+          it can be stored anywhere. 
+        - So PriorityQueue is "also skipped" from SequencedCollection. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. HashSet:
+        - HashSet also do not follow the Insertion or Sorted order. 
+        - Since order is not supported, we can't access the first or last element too. 
+        - So manipulation, reverse is not applicable over here. 
+        - That's why HashSet is "also skipped" from the SequencedCollection. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. LinkedHashSet: 
+        - It follows Insertion Order. 
+        - As it internally uses doubly LinkedList to maintain a insertion order. 
+        - So, you can access the first and last element but you have to do manual iteration. 
+            Access:
+                    linkedHS.iterator().next();         // first element
+
+                    Access First Element;               // (allowed)
+                    Access Last Element;                // (allowed)
+            
+            Add:
+                    Add element at First: (since it uses doubly LinkedList internally, so its possible
+                                            to add elements at fist, but method is not present.)
+                    linkedHS.add("A");                   // Adds to the end
+            
+            Remove:
+                    Requires manual iteration and then we can 
+                    remove both first and last element.
+                ex:
+                    Iterator<E> it = set.iterator();
+                    it.next();
+                    it.remove();
+
+                Remove First Element;                      // (allowed)
+                Remove Last Element;                       // (allowed)
+        
+        - Similary reverse, as it follows  doubly linkedlist internally you can get the reverse as it iterate from
+          opposite direction also because of the doubly linkedlist. 
+        - LinkedHashSet, is put inside SequencedSet and not directly under SequencedCollection because, SequencedSet
+          adds an additional contract i.e. NO DUPLICATES.
+
+============================================ So all these conditions are satisfied so "LinkedHashSet" is said to be a part of SequencedSet ============================================
+
+
+7. SortedSet:
+        - As it folows Sorted Order so its a consistent behaviour, Anytime you try to fetch the value you'll fetch in a particular sequence. You'll not get randomly.
+        - SortedSet<Integer> sortedSet = new TreeSet<>(Set.of(16, 6, 9));
+            Access:
+                    sortedSet.first();                      // return 6(minimum)
+                    sortedSet.last();                       // return 16(maximum)
+
+            Add:
+                    sortedSet.add(1);                       // Goes to first if smallest
+                    sortedSet.add(614);                     // Goes to last if largest
+
+            Remove: 
+                    sortedSet.remove(sortedSet.first());
+                    sortedSet.remove(sortedSet.last());
+
+        - There is an operation called as descendingIterator() to do reverse. 
+                NavigableSet<Integer> sortedSet = new TreeSet<> (Set.of(16, 6, 9));
+
+                Iterator<String> revItr = sortedSet.descendingIterator();
+                    while(revItr.hasNext()){
+                        // iteration logic
+                    }
+        
+        - As it is a set no duplicates are allowed so its under "SequencedSet"
+
+
+============================================ So all these conditions are satisfied so "SortedSet" is said to be a part of SequencedSet ============================================
+
+
+8. HashMap:
+        - No insertion order, no Sorted order
+        - That's why the first and last elements can't be accessed too.
+        - So, its not under SequencedCollection.
+ 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9. HashTable:
+        - No insertion order, no Sorted order
+        - That's why the first and last elements can't be accessed too.
+        - So, its not under SequencedCollection.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10. LinkedHashMap:
+        - LinkedHashMap internally it uses doubly linkedlist, so it follows insertion order. 
+            Access:
+                    map.entrySet().iterator().next()
+                    Similarly last element can be iterate. 
+        
+            Add:
+                    Add element at First:
+                It uses doubly Lnkedlist internally, so its possible to add elements at First, 
+                but method is not present. 
+
+                    map.put(key, value)
+                It adds the entry at the end of the map iteration order. 
+            
+            Remove: 
+                Requires manual iteration and then we can remove both first and last element.
+                    map.entrySet().iterator().remove()
+        
+        - Reverse view is possible as it uses doubly LinkedList, but method is not present.
+
+============================================ So all these conditions are satisfied so "LinkedHashMap" is said to be a part of SequencedSet ============================================
+
+11. SortedMap 
+        - It follows Sorted Order
+            Access:
+                firstKey()
+                lastKey()
+
+            Add:
+                put(K key, V value)
+        
+            Remove:
+                pollFirstEntry() (via NavigableMap)
+                pollLastEntry()(via NavigableMap)
+        
+        - In NavigableMap, we have the method "descendingMap()", we can use it to iterate in reverse direction. 
+        - All the conditions are satisfied so this is under SequencedMap.
+
+============================================ So all these conditions are satisfied so "SortedMap" is said to be a part of SequencedMap ============================================
+
+
+Question: Why exactly these interfaces are needed?
+-  If you want to access the first, last element from any collection before there is different methods for every collection. 
+-  Each Collection type has different methods since there is not common interface.
+-  Each Collection have their own methods. 
+-  That's why these SequencedCollection, SequencedSet, and SequencedMap makes our work easy by defining same methods for every collection. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SequencedCollection:
+                        - Void addFirst(E e)
+                        - Void addLast(E e)
+                        - E getFirst()
+                        - E getLast()
+                        - E removeFirst()
+                        - E remove.Last()
+                        - SequencedCollection<E> reversed()
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SequencedSet:
+                        - SequencedSet<E> reversed()
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SequencedMap:
+                        - Map.Entry<K, V> firstEntry()
+                        - Map.Entry<K, V> lastEntry()
+                        - Map.Entry<K, V> pollFirstEntry()
+                        - Map.Entry<K, V> pollLastEntry()
+                        - V putFirst(K k, V v)
+                        - V putLast(K k, V v)
+                        - SequenceSet<K> sequencedKeySet()
+                        - SequencedCollection<V> sequencedValues()
+                        - SequencedSet<Map.Entry<K,V>> sequencedEntrySet()
+                        - SequencedMap<K,V> reversed();
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Now, the same operations can be done using Java 21: 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. List:
+        List<String> list = new ArrayList<>(List.of("S", "H", "U", "B"));
+        Access: 
+                list.getFirst();                // S
+                list.getLast();                 // B 
+
+        Add:
+                list.addFirst("A");             // A, S, H, U, B 
+                list.addLast("Z");              // A, S, H, U, B, Z
+
+        Remove: 
+                list.removeFirst();             // S, H, U, B, Z
+                list.removeLast();              // S, H, U, B 
+        
+        Reverse:
+                list.reversed();                // B, U, H, S 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Deque:
+        Deque<String> deque = new ArrayDeque<>(List.of("S", "H", "B"));
+        Access:
+                deque.getFirst();               // S 
+                deque.getLast();                // B 
+
+        Add:    
+                deque.addFirst("A");             // A, S, H, B   
+                deque.addLast("Z");              // A, S, H, B, Z
+        
+        Remove: 
+                deque.removeFirst();             // S, H, B, Z 
+                deque.removeLast();              // S, H, B 
+
+        Reverse: 
+                deque.reversed();                 // B, H, S 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. LinkedHashSet:
+        SequencedSet<String> set = new LinkedHashSet<>(List.of("B", "C", "D"));
+        Access:
+                set.getFirst();                   // B
+                set.getLast();                    // D 
+        
+        Add:
+                set.addFirst("A");                // A, B, C, D 
+                set.addLast("Z");                 // A, B, C, D, Z
+
+        // Set do not contains duplicates, so when we try to insert the duplicate value, 
+           it'll find the existing value and shift it to the new place. 
+                set.addFirst("C");                // C, A, B, D, Z
+        
+        Remove:
+                set.removeFirst();                // A, B, D, Z
+                set.removeLast();                 // A, B, D 
+
+        Reverse: 
+                set.reversed();                   // D, B, A 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. SortedSet:
+        SequenceSet<Integer> sortedSet = new TreeSet<>(Set.of(6, 1, 4));
+        Access:
+                sortedSet.getFirst();              // 6
+                sortedSet.getLast();               // 4
+
+        Add:
+        // As sortedSet sort the elements as when inserted, so addFirst() and addLast()
+           method, do not make sense, that's why this method throws UnsupportedOperationException.
+
+                sortedSet.addFirst(2);              // UnsupportedOperationException
+                sortedSet.addLast(4);               // UnsupportedOperationException
+
+        // Instead we can simply use add() method if its smallest value it'll get add in first position.
+        // If the value is largest then it'll add in last position.
+
+                sortedSet.add(2)                     // 2, 6, 1, 4
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. LinkedHashMap:
+        SequenceMap<Integer, String> map = new LinkedHashMap<>();
+                map.put(614, "S");
+                map.put(200, "H");
+                map.put(300, "U");
+
+        Access:
+                map.firstEntry();                      // 614 = S 
+                map.lastEntry();                       // 300 = U 
+        
+        Add:    
+                map.putFirst(0614, "R");                // 0614=R, 614=S, 200=H, 300=U 
+                map.putLast(3959, "K");                 // 0614=R, 614=S, 200=H, 300=U, 3959=K 
+
+        Remove: 
+                map.pollFirstEntry();                   //  614=S, 200=H, 300=U, 3959=K
+                map.pollLastEntry();                    //  614=S, 200=H, 300=U,
+
+        Reverse:
+                map.reversed();                         // 300=U, 200=H, 614=S 
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. SortedMap:
+        SortedMap<Integer, String> sortedMap = new TreeMap<>();
+                sortedMap.put(100, "B");
+                sortedMap.put(200, "C");
+                sortedMap.put(300, "D");
+        Access:
+                sortedMap.firstEntry();                 // 100 = B 
+                sortedMap.lastEntry();                  // 300 = D 
+
+        Add: 
+        // as SortedMap sort the values as when inserted, so putFirst() and putLast()
+           method, do not make sense, that's why this method throws UnsupportedOperationException.
+
+                sortedMap.putFirst(50, "A");            // UnsupportedOperationException
+                sortedMap.putLast(400, "Z");            // UnsupportedOperationException
+
+        // Instead we can simply use put() method 
+                sortedMap.put(50, "A");                 // 50=A, 100=B, 200=C, 300=D
+                sortedMap.put(400, "Z");                // 50=A, 100=B, 200=C, 300=D, 400=Z 
+
+        Remove:
+                sortedMap.pollFirstEntry();             // 100=B, 200=C, 300=D, 400=Z
+                sortedMap.pollLastEntry();              // 100=B, 200=C, 300=D
+
+        Reverse:
+                sortedMap.reversed();                   // 300=D, 200=C, 100=B 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
