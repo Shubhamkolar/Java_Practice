@@ -1,0 +1,89 @@
+Q. How two microservices can communicate with each other?
+- Microservices communicate using "Synchronous" and "Asynchronous" communication. 
+
+--------------------------------------------------------------------------------------------------------------------------------
+                                Synchronous Communication:
+
+- Client wait for the response from the Server before continuing. 
+- Blocking in nature, means thread waits till response is not received. 
+
+                                        Synchronous Communication  
+                                                    |
+        ----------------------------------------------------------------------------------------
+        |                                           |                                          |
+   RestTemplate                                 RestClient                                 FeignClient
+                                                                                    (imp. used in Spring Cloud)
+
+
+
+Sample HTTP GET Request call:
+
+GET/orders/1 HTTP/1.1 -------------> (HTTP method/Path(URI)/Protocol version)
+Host:localhost:8081 ----------> Target host
+User-Agent:curl/8.7.1 ------> Which client/tool is used to make the request (postman)
+Accept: application/json  ----> Format in which client want response
+
+
+Sample HTTP POST Request call:
+
+POST/products HTTP/1.1
+Host: localhost: 8081
+User-Agent: curl/8.7.1
+Accept: application/json
+Content-Type: application/json ------> Tell server that, request body is JSON
+Content-Length: 65 ------------->  Tells the number of bytes in the request body 
+{
+    "name": "Ice-Cream", -------------> Actual data, a new product object
+    "price": 200
+}
+
+
+Sample HTTP GET Response call, with keep alive:
+
+HTTP/1.1 200 OK ------------------------> 2xx: request is successful, 4xx: client sent invalid request, 5xx: Server error
+Date: Mon, 2 June 2025 9:00:00 GMT
+Content-Type: application/json  --------------> Tells client to expect JSON response
+Content-Length: 65  ---------------------> No of bytes in response body
+Connection: keep-alive
+Keep-alive: timeout=5, max=50
+{
+    "id": 10,          -----------------> Response body
+    "name": "SJ"
+}
+
+- By default, connection is set to keep-alive in HTTP/1.1
+- In HTTP/1.0 by-default connection is set to close.
+- Keep-alive:
+        - timeout=5, tells close the TCP connection if its idle for 5 seconds.
+        - Max=50, tells the maximum number of requests can be send over same TCP connection.
+- When Connection: close is set, it tells after every response from the server, TCP connection is closed, its not reused.
+
+Couple of Disadvantage of above approach is:
+- Too much Boilerplate code:
+            - Open connection
+            - Setting headers
+            - Reading response
+            - Closing streams and connections.
+- Reponse should be handled manually.
+            - No automatic mapping to some Objects.
+- Limited support for Advance features like
+            - Connection pooling
+            - Interceptors etc. 
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+                                                    RestTemplate
+
+- Abstract low level code like creating HttpURLConnection object etc.
+- Traditional/Legacy way to call REST APIs in Spring application.
+
+Limitation of RestTemplate:
+- In RestTemplate, there are already so many overloaded methods, so its hard to remember and maintain.
+- RestTemplate was build before concepts like Retry, circuit breaker etc... So adding support means more overloaded
+  methods and not user friendly. 
+- RestTemplate is in Maintenance mode- means no new feature, only bug fixes. 
+
+
+That's where latest RestClient comes into the picture:
+- Introduction of Fluent, builder-style API (more readable and user friendly way of configuring and invoking the endpoint)
+- RestClient supports easy integration with interceptors, filters etc. 
