@@ -1,0 +1,34 @@
+Q. How to divide Monolithic System into Microservices? And in how many Microservices, how to determine?
+=> There is no such way to determine how many microservices...
+
+Let's break the whole question into small questions first!
+
+Q. Why we want Microservices?
+- Loosely Coupled, means if you are updating one microservice then there should no need to update the other. They must be independent.
+- Engineers should independently code, test, and deploy. It should evolve independently. There should be no dependency. 
+- Less communication overhead means that there should not be any scenario that for each operation or each small thing you have to communicate between these 2 microservices,
+  So more communication overhead means more latency, more complexity, more dependency, which ultematily breaks the loose coupling. 
+- Scale independently. 
+
+Q. How many Microservices and how did you determine it??
+- It should follow DDD (Domain-Driven-Design) approach to determine how many microservices are required. 
+- This is not a full proof solution.. or 100% work!, There are different approach such as based on DB/service or shared service, configuration wise, technology wise i.e. (Frontend, backend, datbase access layer)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Domain Driven Design
+Step 1: Understand the Domain, sit with the domain experts, understand it thoroughly.., Clarify what problem should be solved. 
+Step 2: Comming up with the sub-domains. Each subdomains can be a microservices.  
+Step 3: Event-Storming- This approach helps to determine the sub-domains. In this approach all the domain experts sit together,
+        take out all the events such as user registration, user Login, msg sent, msg delivered, msg deleted..., etc. 
+Step 4: Sequence it and try to find the missing events, If we spent something miss in the brain-storming event we can add into it..
+Step 5: Bounded Context- Group the logical related events into 1 bounded context. Ex. User login, User logout, User registration called as User Managed Bounded Context. 
+  
+Define microservices based on business functionality, not technical layers.
+| Monolith Module | Microservice Candidate |
+| --------------- | ---------------------- |
+| User Management | Auth-Service           |
+| Product Catalog | Product-Service        |
+| Cart Logic      | Cart-Service           |
+| Orders Handling | Order-Service          |
+| Payments        | Payment-Service        |
+| Shipping        | Shipping-Service       |
