@@ -1,0 +1,476 @@
+1. What is Java?
+- Java is a high-level, class-based, object-oriented programming language developed by Sun Microsystems (now owned by Oracle). It was released in 1995, and is one of the most widely used programming language.
+- Everything is treated as an object except the primitives. 
+- It is a general-purpose programming language intended to let programmers write once, run anywhere, meaning that compiler java code can run on all platforms that supports Java without the need to recomplie.
+- It is used to develop a wide variety of applications, including:
+- Web applications, Mobile applications, Enterprise software, Scientifc applications, and Embedded systems.
+
+2. Explain the difference between JDK, JRE, JVM?
+-- JDK:
+    - Java Development Kit is a software development environment that includes JRE, and development tools. It's used to create Java application and applets.
+      JDK includes tools like a compiler, debugger, and documentation generator.
+
+-- JRE:
+    - Java Runtime Environment is a set of software tools that provides a runtime environment for running other software. It's used to run Java applications. JRE contains class libraries, supporting files, and the JVM.
+
+-- JVM:
+    - Java Virtual Machine is the foundation of Java programming language and ensures the program's Java source code will be platform-agnostic. It's used to run Java bytecode. JVM is included in both JDK and JRE, and java
+      programs won't run without it. 
+
+3. What are the main features of java?
+- Simple and Easy to learn. Java is easy to learn and simple to use as a programming language.
+- Object-Oriented programming.
+- Platform Independence. 
+- Automatic Memory Management.
+- Security.
+- Rich API.
+- Multithreading.
+- High Performance.
+- Scalability.
+
+4. What is the difference between Java and JavaScript?
+- Java is OOP programming language while JavaScript is an OOP scripting language. 
+- Java creates application that run in a virtual machine or browser while JavaScript code is run on a browser only.
+- Java code needs to compiled while JavaScript code are all in text.
+
+5. What is an object-oriented programming language?
+- Object-oriented programming (OOP) is a programming language that uses objects to bind data and the functions that operate on it. The goal of OOP is to implement
+  real-world entities like inheritance, hiding, and polymorphism. OOP concepts include:
+    - Class
+    - Object
+    - Inheritance
+    - polymorphism
+    - Encapsulation
+    - Abstraction
+
+6. What are the pillars of OOPS?
+- The four pillars of OOPS (object-oriented programming) are Inheritance, Polymorphism, Encapsulation and Data Abstraction.
+
+7. What is an class in java?
+- A class in Java is a set of objects which shares common characteristics/ behavior and common properties/ attributes.
+- It is a user-defined blueprint or prototype from which objects are created.
+- For example, Student is a class while a particular student named Shubham is an object.
+
+8. What in an Object in Java?
+- An object in Java is a basic unit of Object-Oriented Programming (OOP) and represents real-life entities.
+- Objects are the instances of a class that are created to use the attributes and methods of a class.
+- Java objects are very similar to the objects we can observe in the real world. A cat, a lighter, a pen, or a car are all objects.
+
+9. How do you create an object in Java?
+- To create an object in Java, you use the new keyword, followed by the class name and parentheses. For example, to create an object of the class MyClass, you would write:
+        MyClass myObject = new MyClass();
+- Different ways to create an object in Java:
+    - Using new keyword.
+    - Using new instance.
+    - Using clone() method.
+    - Using deserialization.
+    - Using newinstance() method of Constructor class.
+
+10. What is the difference between class and objects in java?
+- Class: 
+        - Class is a user-defined datatype that has its own data members and member functions.
+        - Class is a blueprint or prototype from which objects are created.
+        - It is a logical entity.
+        - It does not occupy any memory space.
+        - Class is declared using the class keyword.
+- Object:
+        - Object is an instance of a class.
+        - Object is a real-world entity such as book, car, etc.
+        - It is a Physical entity.
+        - It occupies memory space.
+        - Object is created using the new keyword.
+
+11. Explain the concept of inheritance?
+- Inheritance is a mechanism in object-oriented programming that allows a class to inherit the properties and behaviors of another class. 
+- In Java, inheritance is implemented using the extends keyword, when a class inherits from another class, it is called a subclass or child class, and the 
+  class it inherits from is called a superclass or parent class. The subclass inherits all of the public and protected members of the superclass, including 
+  its fields, methods, and constructors. 
+  Eg: 
+
+  class Animal{
+    String name;
+    int age;
+
+    void eat(){
+        System.out.println("Animal is eating");
+    }
+  }
+
+   class Dog extends Animal{
+    String breed;
+
+    void bark(){
+        System.out.println("Dog is barking");
+    }
+   }
+
+   public class Main{
+    public static void main(String[] args){
+        Dog odg = new Dog();
+        dog.name = "Rani";
+        dog.age = 5;
+        dog.breed = "Labrador";
+        dog.eat();      // Prints "Animal is eating"
+        dog.bark();     // Prints "Dog is barking"
+    }
+   }
+
+12. What is the purpose of super keyword?
+- The super keyword can be used to call the superclass constructor from the subclass constructor. This is done by using the super() keyword followed by the arguments to the superclass constructor.
+For example, 
+    class Superclass{
+        public Superclass(int x){
+            System.out.println("Superclass constructor called with x = " + x);
+        }
+    }
+
+    class Subclass extends Superclass{
+        public Subclass(int x, int y){
+            super(x);       // Call the constructor with the value of x
+            System.out.println("Subclass constructor called with y =" + y);
+        }
+    }
+    public class Main{
+        public static void main(String[] args){
+            Subclass subclass = new Subclass(10, 20);
+        }
+    }
+OUTPUT: Superclass constructor called with x = 10
+        Subclass constructor called with y = 20
+
+13. What is Polymorphism in java?
+- Polymorphism is derived from two Greek words, "poly" and "morph", which mean "many" and "forms", respectively. 
+- Hence, polymorphism meaning in Java refers to the ability of objects to take on many forms.
+- In other words, it allows different objects to respond to the same message or method call in multiple ways.
+For example:
+
+public class Animal{
+    public void makeSound(){
+        System.out.println("Animal sound");
+    }
+}
+public class Dog extends Animal{
+    @Override
+    public void makeSound(){
+        System.out.println("Meow!");
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        Animal animal = new Animal();
+        animal.makeSound();     // Prints "Animal sound"
+
+        Dog dog = new Dog();
+        dog.makeSound();        // Prints "Woof!"
+
+        Cat cat = new Cat();
+        cat.makeSound();        // Prints "Meow!"
+    }
+}
+
+14. Explain the difference between method overloading and method overriding in java?
+- Method overloading is when a class has two or more methods with the same name but different parameters. This allows us to have multiple methods with the same name that perform different tasks, depending on the arguments passed to them.
+  For example, we could have a calculateArea() method that takes a single argument (the radius of a circle) and returns the area of the circle, and we could also have a calculateArea() method that takes two arguments (the length and width of a rectangle)
+  and returns the area of the rectangle.
+- Method overriding is when a subclass provides its own implementation of a method that is already defined in the superclass. This allows us to customize the behavior of a method in a subclass, without having to break the code that relies on the superclass method. 
+  For example, we could have a draw() method in a Shape class that simply prints the message "Drawing a shape". We could then override the draw() method in a Circle subclass to print the message "Drawing a circle".
+
+-------------------------------------------------------------------------------------------------------------------------
+Features      |              Method overloading                          |              Method overriding               |
+              |                                                          |                                              |
+-------------------------------------------------------------------------------------------------------------------------
+Number of     | Two or more methods with the same name                   |  One method in the subclass and one method in|
+methods       |                                                          |  the superclass.                             |
+              |                                                          |                                              |
+Parameters    | Different parameters                                     |  Same parameters                             |
+              |                                                          |                                              |
+Return type   | Same or different return type                            |  Same return type                            |
+              |                                                          |                                              |
+Inheritance   | Not required                                             |  Required                                    |
+              |                                                          |                                              |
+Purpose       | To provide multiple methods with the same name that      |  To customize the behavior of a method in a  |
+              | perform different tasks.                                 |  subclass.                                   |
+-------------------------------------------------------------------------------------------------------------------------
+
+15. What is Encapsulation in java?
+- Encapsulation in Java is the process by which data (variables) and the code that acts upon them (methods) are integrated as a single unit. By encapsulating a class's variable, 
+  other classes cannot access them, and only the methods of the class can access them. 
+public class Person{
+    private String name;
+    private int age;
+
+    // getters and setters
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public int getAge(){
+        return age;
+    }
+    public void setAge(int age){
+        this.age = age;
+    }
+} 
+- In this example, the data members name and age are declared as private, and public getter and setters methods are provided to access and modify them. This way, the internal implementation of the Person class is hidden from the
+  outside world, and the data members can only be accessed or modify through the public methods. 
+
+16. What are the purpose of access modifiers in java?
+- Access modifiers in java are used to control the access level of classes, methods, variables and constructors.
+- They are used to restrict to certain parts of a program, which can help to improve security and make the code more maintainable. 
+
+17. Difference between public, private, protected & default in java?
+- Public: 
+        Public members are accessible from anywhere in the program. 
+- Private: 
+        Private members are only accessible from within the class in which they are declared. 
+- Protected: 
+        Protected members are accessible from within the class in which they are declared, as well as from any subclass of that class. 
+- Default: 
+        Default members are accessible from within the package in which they are declared. 
+
+18. What is abstract class in java?
+- Abstract class: It is a restricted class that cannot be used to create objects (to access it, it must be inherited from another class).
+  Abstract method: It can only be used in an abstract class, and it does not have a body. The body is provided by the subclass (inherited from). 
+abstract class Shape{
+    // abstract method
+    abstract void draw();
+}
+// subclass of Shape
+class Circle extends Sahpe{
+    // overriding the draw() method
+    @Override
+    void draw(){
+        System.out.println("Drawing a cricle");
+    }
+}
+
+// subclass of Shape
+class Rectangle extends Shape{
+    // overriding the draw() method 
+    @Override 
+    void draw(){
+        System.out.println("Drawing a rectangle");
+    }
+}
+// main class
+public class Main{
+    public static void main(String[] args){
+        // Creating an object of Cricle class
+        Circle circle = new Circle();
+        // calling the draw() method on circle object
+        circle.draw();
+
+        // creating an object of Rectangle class
+        Rectange rectangle = new Rectangle();
+        // calling the draw() method on rectangle object
+        rectangle.draw();
+    }
+}
+OUTPUT: Drawing a circle 
+        Drawing a rectangle
+
+
+19. How do you achieve abstraction in java?
+- In java, abstraction is achieved by interfaces and abstract classes. We can achieve 100% abstraction using interfaces. Data Abstraction may also be defined as the 
+  process of identifying only the required characteristics of an object ignoring the irrelevant details. 
+// Java Program to implement
+// Java Abstraction
+// Abstract Class declared
+
+abstract class Animal{
+    private String name;
+    public Animal(String name){ this.name = name;}
+    public abstract void makeSound();
+    public String getName{}{return name;}
+}
+
+// Abstract class
+class Dog extends Animal{
+    public Dog(Sting name){ super(name);}
+    public void makeSound(){
+        System.out.println(getName() + " barks");
+    }
+}
+// Abstract class
+class Cat extends Animal{
+    public Cat(String name){ super(name);}
+
+    public void makeSound()
+    {
+        System.out.println(getName() + " meows");
+    }
+}
+// Driver class
+public class AbstractionExample{
+    // Main functions
+    public static void main(String[] args)
+    {
+        Animal myDog = new Dog("Buddy");
+        Animal myCat = new Cat("Fluffy");
+
+        myDog.makeSound();
+        myCat.makeSound();
+    }
+}
+OUTPUT: Buddy barks
+        Fluffy meows 
+
+20. What is constructor in Java?
+- A constructor in Java is a special method that is used to initialize objects. It is called when an object of a class is created. It can be used to set 
+  initial values for object attributes. 
+- Constructors are similar to methods, but they have some important differences: 
+    - Constructors have the same name as the class they are in.
+    - Constructors do not have a return type. 
+    - Constructors are called automatically when an object is created. 
+- Here is an example of a constructor: 
+    public class Person{
+        private String name;
+        private int age;
+
+        public Person(String name, int age){
+            this.name = name;
+            this.age = age; 
+        }
+    }
+- This constructor takes two parameters, a name and age, and uses them to initialize the corresponding objects attributes. 
+- to create a new Person object, you would use the following code: 
+    Person person = new Person("Shubham Kolar", 24);
+
+21. What is difference between default & parameterized constructor in Java?
+- Default Constructor:
+    - A default constructor is a constructor that has no parameters. 
+    - It is implicitly provided by the compiler if no constructor is explicitly defined in a class. 
+    - A default constructor initializes all instance variables to their default values. 
+class Student{
+    int id;
+    String nam;
+
+    // Default constructor
+    Student(){
+        id=0;
+        name="null";
+    }
+}
+- To create an instance of the Student class using the default constructor, you would simply write: 
+    Student student = new Student();
+- Parameterized Constructor: 
+    - A parameterized constructor is a constructor that has one or more parameters. 
+    - It is explicitly defined by the programmer. 
+    - A parameterized constructor allows you to initilize instance variables to specify values at the tiem of object creation. 
+
+class Student{
+    int id;
+    String name;
+
+// Parameterized constructor
+    Student(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+}
+- To create  an instance of the Student class using the parameterized constructor, yo would write: 
+    Student student = new Student(1, "Shubham Kolar");
+
+
+22. What is the purpose of the static keyword in Java?
+- The static keyword in Java is mainly used for Memory management. The static keyword in Java is used to share the same variable or method of a given class. 
+- The users can apply static keywords with varibles, methods, blocks and nested classes. The static keywords belongs to the class than an instance of the class. 
+
+23. What is static methods in java?
+- A static method in java is a method that belongs to a class rather than an instance of a class. Static methods are used to access and change static variables and other
+  non-object based static methods. 
+- Here are some features of static methods:        
+        - Static methods are called using the class name, nor the instance name.
+        - Static methods can only access static variables and other static methods. 
+        - Static methods cannot access non-static variables or non-static methods.
+        - Static methods are typically used for utility functions, such as mathematical functions or string manipulation functions. 
+
+24. What is the purpose of the final keyword in java?
+- The final keyword is non-access modifier used for classes, attributes and methods, which makes them non-changeable or unmodifiable (Impossible to inherit or override).
+- The final keyword is useful when you want a variable to always store the same values, like PI(3.14159..) The final keyword is called a "modifier".
+
+25. Explain difference between final, finally, and finalize in java?
+- final is a keyword used in java to restrict modification of a variable, methods, or class. 
+- finally is a block used in to ensure that a section of code is always executed, even if an exception is thrown. 
+- finalize is a method in java used to perform cleanup processing on an object before it is garbage collected. 
+
+26. What is method overrriding in java?
+- In java, method overriding occurs when a subclass (child class) has the same method as the parent class. In other words, method overriding occurs when a subclass provides a particular implementation
+  of a method declared by one of its parent classes. 
+- To override a method, the subclass must have the same method name, return type, and parameter list as the method in the parent class. The overriding method can also return a subtype of the type returned
+  by the overridden method. 
+- example:
+    class Animal{
+        public void move(){
+            System.out.println("Animal can move");
+        }
+    }
+    class Dog extends Animal{
+        @Override
+        public void move(){
+            System.out.println("Dogs can walk and run");
+        }
+    }
+
+    public class TestDog{
+        public static void main(Stringp[] args){
+            Animal a = new Animal();
+            Animal b = new Animal();
+            a.move();       // prints "Animal can move"
+            b.move();       // prints "Dogs can walk and run"
+        }
+    }
+- In the above example, the Dog class overrides the move() method from the Animal class. The Dog class's move() method prints a different message
+  than the Animal class's move() method.
+- When you call the move() method on a Dog object, the Dog class's move() method is called, even though the Dog object is an instance of the Animal
+  class. This is because the Dog class overrides the move() method.
+- Method overriding is a powerful feature that allows you to customize the behavior of classes in java. It is one of the key features that makes java
+  an object-oriented programming language. 
+
+
+27. What is method overloading in java?
+- Method overloading in Java means having two or more methods (or functions) in a class with the same name and different arguments (or parameters).
+  It can be with a different number of arguments or different data types of arguments. 
+- Example: 
+    class Adder{
+        static int add(int a, int b){ return a+b; }
+        static double add(double a, double b){ return a+b; }
+    }
+    class TestOverloading2{
+        public static void main(String[] args){
+            System.out.println(Adder.add(11, 11));
+            System.out.println(Adder.add(12.4, 22.2));
+        }
+    }
+OUTPUT: 22
+        34.6
+
+
+28. What is a package in Java?
+- A java package is a group of similar types of classes, interfaces and sub-packages.
+- Package in Java can be categorized in two form, built-in package and user-defined package. 
+- There are many build-in packages such as java, lang, awt, javax, swing, net, io, sql etc. 
+
+
+29. How do you import packages in Java?
+- Packages are used to avoid naming conflicts, and to control access to classes. For example, the java.lang package contains classes such 
+  as String, Object, and Math, which are fundamental to the Java language. 
+- Packages are declared using the package keyword. 
+  Package mypackage;
+- the following code imports the String class from the java.lang package: 
+  import java.lang.String
+- the following code declares a nested package named mypackage.subpackage:
+  package mypackage.subpackage;
+
+
+30. What is the purpose of import statement in java?
+- An import statement tells java which class you mean when you use a short name (like List). It tells Java where to find the definition of that class. 
+  You can import just the classes you need from a package as shown below. Just provide an import statement for each class that you want to use. 
+- Import statement in Java is helpful to take a class or all classes visible for a program specified under a package, with the help of a single statement. 
+    import java.util.List;
+    import java.util;
+    import static java.lang.Math.PI;
+    
