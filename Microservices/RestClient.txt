@@ -1,0 +1,31 @@
+Limitation of RestTemplate:
+- In RestTemplate, there are already so many overloaded methods, so its hard to remember and maintain.
+- Resttemplate was build before concepts like Retry, circuit breaker, etc.. So adding support means overloaded methods and not user friendly.
+- RestTemplate is in Maintenance mode- means no new feature, only bug fixes.
+
+                                                Alternative of RestTemplate
+                                                               |
+                                                               |
+        ---------------------------------------------------------------------------------------------------------
+        |                                                                                                        |
+    WebClient                                                                                                 RestClient
+- Asynchronous/non blocking in nature.                                                           - Introduced in Spring Framework 6.0+ and SpringBoot 3.0+
+- Client do not wait for the response from the server before continuing.                         - Synchronous/blocking in nature, means client wait for the response from the Server before continuous nature.
+- Introduced in Spring WebFlux for reactive programming.                                         - Modern, fluent based API that is more readable and easy to maintain.
+                                                                                                 - More frequently used than RestTemplate.
+
+What does Fluent API works?
+- Fluent API means chaining of method calls.
+- Each method call returns an object (of next step) that exposes next set of operations(methods).
+- Here sequence matters else the chaining will break.
+
+
+            RestTemplate  VS  WebClient  VS  FeignClient 
+
+------------------------------------------------------------------------------
+| Client       | Sync/Async  | Use Case                   | Recommended      |
+| ------------ | ----------- | -------------------------- | -----------------|
+| RestTemplate | Synchronous | Simple use, legacy support |  Deprecated      |
+| WebClient    | Async       | Modern, non-blocking apps  |  Preferred       |
+| FeignClient  | Declarative | Microservices, Clean Code  |  Microservices   |
+------------------------------------------------------------------------------
