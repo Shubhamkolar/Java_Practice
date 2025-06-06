@@ -1,0 +1,191 @@
+1. What is the purpose of RestController and Request Mapping in SpringBoot?
+- @RestController is a specialized version of @Controller that tells SpringBoot:
+- This class handles HTTP requests and returns data like (JSON/XML), not views (like HTML pages). 
+- It is a convenience annotation = @Controller + @ResponseBody
+- @RequestMapping is used to map HTTP requests (like GET, POST, PUT, DELETE, etc.) to handle methods or controller classes.   
+
+2. How can we customize the default server in Springboot how can we do that?
+- We can customize the default embedded server port no by changing it into "application.properties"
+- By default it will be 8080, we can change it into "server.port=8080"
+
+3. Explain SpringBoot Autoconfiguration mechanism?
+- Auto-configuration is a feature in Spring Boot that automatically configures beans and settings in your application based on the libraries (dependencies)
+  on the classpath and existing bean definitions. 
+- You don't need to manually define boilerplate configurations- Spring Boot does it for you. 
+- @SpringBootApplication triggers it all also is a combo of:
+    - @Configuration 
+    - @EnableAutoConfiguration 
+    - @ComponentScan
+- We have @SpringBootApplication on the main class. 
+
+
+4. What is SpringBoot Internationalization in microservices?
+- In a microservices architecture, internationalization (i18n) ensures that each service can respond in the user’s preferred language. 
+- Internationalization means making your application support multiple languages, regions, or formats.
+- In microservices, each service should independently support locale-based content.
+
+
+5. Let's say you have to configure springboot application to support different environments like development, testing, and production so 
+   how would you manage the application properties for each environemnt? 
+- Use profile-specific property files: application-dev.properties, application-test.properties, application-prod.properties.
+- Common properties go in application.properties, which all profiles inherit.
+- Activate profiles using spring.profiles.active in properties file, environment variable, or command line.
+- Spring Boot loads the base file plus the profile-specific file, overriding common properties.
+- Use @Profile annotation to load beans only for certain environments.
+
+
+6. Explain the dependency injection and its types in Spring framework?
+- Dependency Injection (DI) is a design pattern used to implement Inversion of Control (IoC), where the control of creating and managing objects is transferred from the application code to the Spring container.
+- Instead of an object creating its dependencies, the container injects them, promoting loose coupling and easier testing.
+- Types of Dependency Injection in Spring:
+    - Constructor Injection: Dependencies are provided as constructor parameters. This is preferred when the dependency is mandatory and should be immutable after object creation.
+    - Setter Injection: Dependencies are set using setter methods after the object is instantiated. This is useful for optional dependencies.
+    - Field Injection (Not recommended for production): Dependencies are injected directly into fields using @Autowired. While easy to use, it makes testing harder and is less explicit.
+
+
+7. Different Spring Bean Scopes?
+- Spring manages beans with different scopes that define the lifecycle and visibility of a bean instance within the application context.
+- Singleton (Default): 
+        - Only one shared instance of the bean is created per Spring IoC container.
+        - All requests for the bean return the same instance.
+        - Suitable for stateless beans.
+- Prototype: 
+        - A new instance is created every time the bean is requested from the container.
+        - Useful when you need independent bean instances.
+- Request (Web-aware scope):
+        - One instance per HTTP request.
+        - Available only in web applications.
+        - Each HTTP request gets its own bean instance.
+- Session (Web-aware scope)
+        - One instance per HTTP session.
+        - Maintains state across multiple requests in the same session.
+- Application (Web-aware scope)
+        - One instance per ServletContext (web application).
+        - Shared across all requests and sessions in the application.
+- Websocket
+        - One instance per WebSocket session.
+
+
+8. Difference between bean factory and application context?
+---------------------------------------------------------------------------------------------------
+| Feature                             |  BeanFactory              | ApplicationContext            |
+| ----------------------------------- | ------------------------- | ----------------------------- |
+| Initialization                      | Lazy                      | Eager                         |
+| i18n support                        | No                        | Yes                           |
+| Event Handling                      | No                        | Yes                           |
+| Autowiring support                  | No/Manual                 | Yes                           |
+| BeanPostProcessor auto registration | No                        | Yes                           |
+| Preferred Usage                     | Lightweight, low-resource | Enterprise-level applications |
+---------------------------------------------------------------------------------------------------
+-Real-time Use Case
+- Use BeanFactory only if you're working with very limited memory (like mobile devices or IoT).
+- For Spring Boot or enterprise apps, always use ApplicationContext (it’s the default).
+
+
+9. Explain concepts of repositories in spring data JPA?
+- In Spring Data JPA, repositories are interfaces that abstract and simplify data access layers. 
+- They allow you to perform database operations (CRUD, pagination, sorting, and custom queries) with minimal boilerplate code. 
+- Spring Data JPA provides a set of predefined repository interfaces, and you just extend them — Spring will generate the implementation at runtime..
+- Types of Repository Interfaces
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+| Interface                           | Description                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------- |
+|  Repository<T, ID>                  | Base interface, not commonly used directly.                                                             |
+|  CrudRepository<T, ID>              | Provides basic CRUD operations: `save()`, `findById()`, `deleteById()` etc.                             |
+|  PagingAndSortingRepository<T, ID>  | Extends `CrudRepository`, adds pagination and sorting.                                                  |
+|  JpaRepository<T, ID>               | Extends `PagingAndSortingRepository`. Adds JPA-specific methods like `flush()`, `deleteInBatch()`, etc. |
+|  JpaSpecificationExecutor<T>        | For advanced queries using the **Specification API** (dynamic queries).                                 |
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+10. How do you perform pagination and sorting in Spring Boot?
+- In Spring Boot, you can perform pagination and sorting easily using Spring Data JPA by using the Pageable and Sort interface. 
+- Pagination helps load data in chunks (pages) instead of fetching everything at once, improving performance and scalability. 
+- Sorting allows results to be ordered based on one or more fields (ascending or descending). 
+
+
+11. How does the DataJPA handles complex transactions and roll back scenarios? 
+- Handling complex transactions and rollback scenarios is one of the strongest features of Spring Data JPA, and it relies on Spring's powerful transaction management system.
+- A transaction is a unit of work that must be executed completely or not at all. In databases, this ensures data consistency and integrity. 
+- Spring Data JPA uses Spring's declarative transaction management, typically backed by JPA's EntityManager and underlying database support. 
+- Use @Transactional Annotation on Service-layer methods or classes where you want transactional behavior. 
+- If everything succeeds, the data is committed. 
+- If any exception is thrown, Spring will roll back the entire transaction. 
+
+
+12. Let's say you need to improve the performance of the spring data jpa application that is currently experiencing slow query times what strategies would you consider?
+- First of all we can enable caching so that it stores frequently accessed data in memory, so that future requests can be served faster without hitting the database. 
+- Use Pageable to load large datasets in chunks and avoid memory overload. 
+- Enable second-level cache (e.g., EhCache, Redis) to avoid repeated DB hits for frequently accessed data. 
+- Don't always use FetchType.EAGER. Use LAZY and explicitly fetch when needed also optimize the query methods.
+- We can use better schema or indexes for better performance. 
+
+
+13. What is the purpose of the pom.xml file?
+- It is like build automation tool like we can add our dependencies if it fetch it directly from the maven repository. 
+- You can define different configurations for dev, test, and prod environments.
+- Contains basic info like project name, version, description, and URL.
+- Defines how to compile, test, package, and deploy the application.
+
+
+13. Explain maven build life cycle?
+- Maven is a build automation tool mainly for Java projects.
+- It defines build lifecycles which consist of a sequence of phases to perform tasks like compiling, testing, packaging, and deploying your project.
+- First whatever the dependencies is there it will compile otherwise it'll directly go to test and install the latest dependencies 
+
+
+14. How would you optimize the maven build speeds for large projects?
+- Avoid full rebuilds by only building modules that have changed. 
+- Use Maven's built-in support for multi-module projects with mvn-pl to build only specific modules. 
+- Use parallel builds to utilize multi-code CPUs. 
+- Optimize the Dependencies by removing unused dependencies. 
+
+
+15. What are the key features of Microservice architecture that distinguish it from the traditional monolithic architecture?
+- Microservices split the application into small, independent services each responsible for a single business capability.
+- Each microservice can be developed, deployed, and scaled independently. 
+- In contrast, a monolithic app is a single unified codebase where components are tightly coupled. 
+- Microservices allow different services to use different technologies, frameworks, or databases best suited for their needs. 
+- Monolithic apps usually have a single tech stack for the entire application. 
+- Microservices can be deployed separately without affecting the entire system. 
+- Each microservice can be scaled independently based on demand. 
+- Monolithic apps have a single point of failure, so one bug can crash the whole application. 
+
+
+16. How do you manage configuration management in Microservices?
+- Use a centralized service like Spring cloud config server, Zookeeper. 
+- Spring cloud config server reads config from a git repo of file system. 
+- All microservices fetch their configs at startup or runtime.  
+- Use profiles, separate configs per environment. 
+
+
+17. What strategies you would use to implement databases transactions across multiple microservices?
+- We could use distributed transactions patterns like SAGA where each service involved handles its parts of the transactions and coordinates with other
+  via messaging or event driven mechanism.
+
+
+18. Can you describe Service Discovery?
+- In a microservices architecture, there are many services running on different hosts/containers, possibly scaling up or down dynamically. Service Discovery
+  is the process that helps microservices find and communicate with each other without hardcoding their network locations (IP:Port). 
+- Services are dynamic: they can scale, crash, or be rescheduled.
+- IP addresses/ports change frequently (especially in containerized environments like Docker/Kubernetes).
+- We need a way for services to locate each other dynamically and os we use Service discovery.
+- There are 2 types of service discovery: 
+    - Client-Side Discovery: The client (caller) queries a Service Registry to get the instance details of the target service and calls it directly.
+                             Example: Netflix Eureka (with Spring Cloud Netflix)
+    - Server-Side Discovery: The client sends a request to a load balancer or API Gateway, which looks up the service and forwards the request.
+                             Example: Kubernetes Services, Client → API Gateway → looks up Shipping Service → forwards request.
+
+
+19. Let's say you are designing a microservice architecture and need to ensure that the service failures do not affect the entire system. What strategies you would implement?
+- We can implement circuit breaker, fall-back mechanism, Timeouts and Retries. 
+- We can use event driven architecture (Kafka, RabbitMQ) to decouple services which reduces tight coupling and dependencies between services. 
+- Use tools like Spring Boot Actuator, Grafana, etc for regular checking and monitoring. 
+
+
+
+20. Explain the difference and use of class loader subclasses in java?
+- Bootstrap class loader loads core java API classes. 
+- Extension classes loader manages extension classes. 
+- System class loader loads classes set in the systems class path. 
+- Custom class loaders can be implemented also for specific loading strategies. 
