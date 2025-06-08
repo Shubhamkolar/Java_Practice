@@ -1,0 +1,37 @@
+                                    FeignClient
+
+- Feign is a Declarative HTTP client developed by Netflix. 
+- Declarative means we tell "What to do, not How to do". 
+- Ex. Let's say Order service want to communicate with Product service and how this framework will handle it. 
+- SpringBoot, Feign capability is available via SpringCloud OpenFeign library.
+
+- Spring Cloud provides a set of tool and libraries, which helps to build distributed microservices. 
+- As it provides seamless integration with:
+        - Service Discovery
+        - Client side Load Balancing
+        - Circuit Breaker and Resilience
+        - Api Gateway
+        - Distributed Tracing
+        - Centralized Configuration etc..
+
+- When we want to use more Spring Cloud libraries (for load balancer, for Service Discovery etc) and all those Spring Cloud libraries should have compatible version, therefore we use 
+  below dependency management, so that we don't have to manage it manually.
+- It'll be taken care by dependency management. 
+
+- If its not annotated with @EnableFeignClients "SpringBoot" won't scan the interfaces with FeignClients  
+
+@SpringBootApplication
+@EnableFeignClients -----------------------------------> It enable Feign support and tells SpringBoot to scan for interfaces annotated with @FeignClient
+public class OrderServiceApplication{
+    public static void main(String[] args){
+        SpringApplication.run(OrderServiceApplication.class, args);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+What all things are required to make a communication using FeignClient? 
+- First we need to create an interface (No implementation)
+- application.properties (Either we can hardcode the url or define the url in application.properties so that it's easier to change in future)
+- Wherever you want to envoke the product api or any service layer, you have to autowired it and just invoke the method. 
+- Enable @EnableFeignClients in the Spring Application. 
