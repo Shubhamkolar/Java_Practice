@@ -1,0 +1,59 @@
+                                        OBJECT AND CLASSES
+
+- Class is a blueprint of an object or a skeleton. 
+- Object are real world entites. 
+
+Object has 2 types: 
+    - Properties and State
+    - Behavior or Function 
+
+Examples: 
+    - Dog is an Object because it has: 
+        - Properties like: Age, Breed, Color, etc. 
+        - Behavior like: Bark, Sleep, Eat, etc. 
+
+- To create an Object, a Class is required. 
+- So, Class provides the template or Blueprint from which Object can be created. 
+- From one Class, we can create multiple Objects. 
+- To create a class, use the keyword class: 
+
+// Define a class
+class Car {
+    // Attributes (fields)
+    String brand;
+    int year;
+
+    // Method (behavior)
+    void displayDetails() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Year: " + year);
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        // Creating an object of Car class
+        Car myCar = new Car();
+
+        // Setting values to object attributes
+        myCar.brand = "Toyota";
+        myCar.year = 2022;
+
+        // Calling method on object
+        myCar.displayDetails();
+    }
+}
+
+
+OUTPUT:
+        Brand: Toyota
+        Year: 2022
+
+-----------------------------------------------------------------------------
+| Term     | Explanation                                                    |
+| -------- | -------------------------------------------------------------- |
+| class    | A blueprint or template that defines attributes and behaviors. |
+| object   | An instance of a class created using the `new` keyword.        |
+| method   | Defines behavior or actions that the object can perform.       |
+-----------------------------------------------------------------------------
