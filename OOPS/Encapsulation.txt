@@ -1,0 +1,70 @@
+                                2nd PILLAR OF OOPS- DATA ENCAPSULATION
+
+
+- Encapsulation bundles data and the code working on that data in a single unit. 
+- Also known as DATA-HIDING.
+- It’s achieved in Java by:
+    - Making fields private
+    - Providing public getter and setter methods
+- Key Benefits:
+    - Protects data from unauthorized access.
+    - Maintains control over the data.
+    - Makes the code more maintainable and flexible.
+    - Improves modularity and reusability.
+
+- Example: 
+
+// A class demonstrating encapsulation
+class Student {
+    // Private data members
+    private String name;
+    private int age;
+
+    // Public getter method for name
+    public String getName() {
+        return name;
+    }
+
+    // Public setter method for name
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Public getter method for age
+    public int getAge() {
+        return age;
+    }
+
+    // Public setter method for age
+    public void setAge(int age) {
+        if (age > 0) {
+            this.age = age;
+        } else {
+            System.out.println("Age must be positive.");
+        }
+    }
+}
+
+// Main class to test
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+
+        // Setting data via setters
+        s.setName("Shubham");
+        s.setAge(23);
+
+        // Accessing data via getters
+        System.out.println("Name: " + s.getName());
+        System.out.println("Age: " + s.getAge());
+    }
+}
+
+--------------------------------------------------------------------------
+| Term      | Description                                                |
+| --------- | ---------------------------------------------------------- |
+|  private  | Restricts direct access to data fields.                    |
+|  public   | Allows controlled access via methods.                      |
+|  getter   | Returns the value of a field.                              |
+|  setter   | Sets or updates the value of a field (can add validation). |
+--------------------------------------------------------------------------
