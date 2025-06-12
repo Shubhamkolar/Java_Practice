@@ -1,0 +1,94 @@
+1st PILLAR OF OOPS- DATA ABSTRACTION
+
+- It hides the internal implementation and shows only essential functionality to the user. 
+- It can be achieved through Interface and abstract classes. 
+- To focus on what an object does instead of how it does it.
+
+
+Example: 
+Car- We only see only the BREAK pedal, and if we press it, Car speed will reduce. But HOW?? That is ABSTRACTED to us. 
+Cellphone- How call is made that is ABSTRACTED to us. 
+
+Advantages of abstraction: 
+- Increase security and confidentiality.
+
+** Example Using Interface:
+interface Shape {
+    void draw();  // abstract by default
+}
+
+class Circle implements Shape {
+    public void draw() {
+        System.out.println("Drawing Circle...");
+    }
+}
+
+class Square implements Shape {
+    public void draw() {
+        System.out.println("Drawing Square...");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape s1 = new Circle();
+        s1.draw();
+
+        Shape s2 = new Square();
+        s2.draw();
+    }
+}
+
+
+** 2nd Example: 
+
+// Abstract class
+abstract class Animal {
+    // Abstract method (no body)
+    abstract void makeSound();
+
+    // Concrete method
+    void sleep() {
+        System.out.println("Sleeping...");
+    }
+}
+
+// Dog class extends Animal and provides implementation
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks: Woof Woof!");
+    }
+}
+
+// Cat class extends Animal and provides implementation
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows: Meow Meow!");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        // You cannot instantiate an abstract class
+        // Animal a = new Animal(); 
+
+        Animal dog = new Dog(); // Upcasting
+        dog.makeSound();        // Outputs: Woof Woof!
+        dog.sleep();            // Outputs: Sleeping...
+
+        Animal cat = new Cat();
+        cat.makeSound();        // Outputs: Meow Meow!
+    }
+}
+
+
+----------------------------------------------------------------------------------------------------
+| Concept           | Explanation                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+|  abstract class   | A class that cannot be instantiated. Can have abstract and concrete methods. |
+|  abstract method  | A method without a body. Must be implemented by the subclass.                |
+|  @Override        | Used to provide specific implementation of an abstract method.               |
+----------------------------------------------------------------------------------------------------
