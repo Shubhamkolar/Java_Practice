@@ -1,0 +1,56 @@
+                                                    3rd PILLAR OF OOPS- INHERITANCE
+
+- Capability of a Class to inherit properties from their Parent Class. 
+- It can Inherit both functions and variables, so we do not have to write them again in the child classes. 
+- Can be achieved using extends keyword through interface. 
+- Types of Inheritance: 
+    - Single Inheritance
+    - Multilevel Inheritance 
+    - Hierarchial Inheritance
+    - Multiple Inheritance (through interface we can resolve the diamond problem)
+
+- Advantages of Inheritance: 
+    - Code reusability
+    - We can achieve Polymorphism using Inheritance. 
+- Example: 
+    Imagine:
+    - Vehicle is a parent class.  
+    - Car, Bike, Truck are child classes that inherit common properties like engine, speed, and methods like start(), stop() from Vehicle.
+
+// Superclass (Parent)
+class Animal {
+    void eat() {
+        System.out.println("This animal eats food.");
+    }
+}
+
+// Subclass (Child)
+class Dog extends Animal {
+    void bark() {
+        System.out.println("The dog barks.");
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();  // Inherited method
+        d.bark(); // Child's own method
+    }
+}
+
+OUTPUT: 
+    This animal eats food.
+    The dog barks.
+
+- TYPES OF INHERITANCE: 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Type             | Supported in Java   | Description                                                                                                           |
+| ---------------- | ------------------  | ----------------------------------------------------------------------------------------------------------------------|
+|   Single         | ✅ Yes              | One class inherits from one superclass.                                                                               |
+|   Multilevel     | ✅ Yes              | A class inherits from a class, which in turn inherits from another class.                                             |
+|   Hierarchical   | ✅ Yes              | Multiple classes inherit from a single parent class.                                                                  |
+|   Multiple       | ❌ Not with classes | Java does not support multiple inheritance with classes (to avoid ambiguity), but supports it via interfaces.         |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
