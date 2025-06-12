@@ -1,0 +1,23 @@
+                                                OOPS OVERVIEW
+
+- OOPS mean Object-Oriented Programming.
+- Here Object means real world entity like Car, Bike, ATM, etc. 
+- Procedural Progamming VS OOPS
+
+--------------------------------------------------------------------------------------------------------
+S. No. |                Procedural Programming          |                       OOPS                    |
+---------------------------------------------------------------------------------------------------------
+    1. | Program is divided into parts called functions |  Program is divided into Objects              |
+-------|------------------------------------------------|------------------------------------------------
+    2. | Does not provide proper way to hide data, gives|  Objects provides data hiding, gives          | 
+       | importance to function and data moves freely   |  importance to data.                          |
+-------|------------------------------------------------|------------------------------------------------
+    3. | Overloading is not possible                    |  Overloading is possible                      |
+-------|------------------------------------------------|-----------------------------------------------|
+    4. | Inheritance is not possible                    |  Inheritance is possible                      |
+-------|------------------------------------------------|-----------------------------------------------|
+    5. | Code reusability does not present              |  Code reusability is present                  |
+-------|------------------------------------------------|-----------------------------------------------|
+    6. | Examples: Pascal, C, FORTRAN, etc.             |  Examples: Java, C#, Python, C++, etc.        |
+---------------------------------------------------------------------------------------------------------
+
