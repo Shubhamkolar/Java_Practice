@@ -1,0 +1,273 @@
+                                                    Service Discovery in Microservices
+
+
+- In Microservices, services or component instances are created and deleted dynamically.
+- We can not hardcode the URL of a particular instance, its not scalable and feasible.  
+
+    ORDER Service    ------------------------->   PRODUCT SERVICE 
+Product-service url = 17.1.1.22.9443                              17.1.1.22.9443
+
+In above example: 
+    - Order service has hardcoded the URL of the Product service and its okay till we have only 1 instance of Product service.
+    - But in case, when we have multiple Product Service instances then...
+
+Let's say a scenario where there are multiple instances such as instance1, instance2, instance3. All have different ip address and port numbers. 
+- But if you have hardcoded the url then the traffic will always go to one of the service only.
+- It is also possible that particular instance is removed then you'll face connectivity issues. 
+
+There are lots of problems, where multiple instances of Product service is present and Order service has hardcoded the URL of the Product service, the problem it might face is: 
+- Single Point of failure:
+  If hardcoded instance of Product Service goes down, Order service will not be able to communicate with any other instance. 
+
+- No load Balancing: 
+  Only one instance of Product Service get overburdened while other instances remain idle. 
+
+- Tight Coupling: 
+  Because of hardcoded URL in Order Service, there is tight coupling between Product and Order Service, as without updating the Order Service its not possible to change or move Product Service. 
+
+- Difficult in testing: 
+  Different environment (say production, QA, dev) might use different URL, which require frequent changes in config and not only cause difficulty in tesing but prone to error too. 
+
+
+ Solution for the above problem is: 
+
+                                                SERVICE DISCOVERY (Like Eureka)
+                                                            |
+                -----------------------------------------------------------------------------------------------------------
+                |                                                                                                          |
+           Eureka Server                                                                                             Eureka Client 
+- Act like a phonebook.                                                                                     - Register itself with the Server. 
+- Has all the instances info of all the registered clients like:                                            - Discovers an instance of other service via Eureka Server 
+    - Service name
+    - Instance id
+    - IP 
+    - Port Number 
+    - Health statue etc. 
+
+ 
+ SIMPLEST DIAGRAM FOR THE OVERFLOW: 
+    
+                        
+                        (3) Choose an instance (using load Balancer)
+                             and invokes an endpoint
+        ORDER SERVICE ------------------------------------------> Product Service 
+            |   |   
+            |   | (1) Give me the list of instances 
+            |   |      of Product Service 
+            |   |
+(2) Returns |   ------------------------ Eureka Server 
+    the     |                                 |
+    Product -----------------------------------
+    Service instances details 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Steps to set up an Eureka Server: 
+
+1. Add the "spring-cloud-starter-netflix-eureka-server" dependencies into pom.xml
+2. Enable the @EnableEurekaServer on main SpringBoot application. This tells the spring boot to create necessary beans, which is required for Eureka Server like: 
+    - EurekaController
+    - Dashboard etc.. 
+3. Update and add the details in application.properties 
+   spring.application.name = eureka-server 
+   server.port=8761
+   # Since it's a server, we don't want it to register and also don't want to fetch the instances details 
+   eureka.client.register-with-eureka=false 
+   eureka.client.fetch-registry=false 
+   - By default its true. 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Steps to set up an Eureka Client Application: 
+
+- Let's say there are multiple services such as "Order Service", "Product Service",.. etc. 
+- First they have to register themselves to the eureka server. 
+- We have to add the dependency suppose in Product Service, In pom.xml: "spring-cloud-starter-netflix-eureka-client" 
+- Mention the server.port, spring.application.name into "application.properties".  
+- Add path of the Eureka Server: eureka.client.service-url.defaultZone=http://localhost:8761/eureka (ServerURL)
+- eureka.client.register-with-eureka=true 
+- eureka.client.fetch-registry=true.   
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Now let's see, how Order Service can invoke Product Service:
+
+1. Using RestTemplate (Without Service Discovery)
+- Let's say we are using RestTemplate, we were creating an object of RestTemplate. 
+- Then we were invoking "restTemplate.getForObject(url.......)" The hard coded URL of the product service. (Specifically mentioning the URL)  
+
+public void callProductAPI(String id){
+    RestTemplate restTemplate = new RestTemplate();
+    String response = restTemplate.getForObject("http://localhost:8082/products/" + id, string.class);
+    System.out.println("Response from Product api call is: " + response);
+}
+
+
+2. With Service Discovery
+- If we are using RestTemplate then we have to use "Discovery Client" it is present into "springframework.cloud.client.discovery.DiscoveryClient"
+- So first we have to discover it, fetch the instances.. 
+- We'll get a list of instances, and this service instance will have lot more information. 
+- But if using RestTemplate then you have to choose particularly an instance you have to manually do the load balancing.   
+- Load balancer logic should be added or intigrate it with Spring Cloud load balancer if you don't want to write your own logic for load balancing.  
+
+@Autowired
+DiscoveryClient discoveryClient;
+
+public void callProductAPI(String id){
+    RestTemplate restTemplate = new RestTemplate();
+    List<ServiceInstance> instances = discoveryClient.getInstances("Product-Service");  -----> Fetching the instances of "Product-Service"
+    URI uri = instances.get(0).getUri(); ---------> load balancer logic to choose a particular instance.
+
+    String response = restTemplate.getForObject(uri + "/products/" + id, String.class);
+    System.out.println("Response from Product api call is: " + response);
+}
+
+
+-- So with RestTemplate, load balancing (choosing an instance for the product service) logic need to be handled. 
+
+
+3. Using FeignClient
+- So with FeignClient, load balancing is handled automatically and by the framework. 
+- So we need to provide the Load Balancer dependency too, apart from  "spring-cloud-starter-netflix-eureka-client"
+- Whenever we use FeignClient + Service Discovery then we need to add the Load balancer dependency also. 
+ 
+                    Earlier without Service Discovery:                                                                With Service Discovery:
+
+@FeignClient(name = "Product-Service",                                                                        @FeignClient (name = "Product-Service") -----> No need of the URL, only the reg service is required.
+        url="${feign.client.product-service.url}")----> We need to provide the URL                            public interface ProductClient{                and Load Balancing will also handled the instances. 
+public interface ProductClient{                                                                                         
+    @GetMapping(value="/products/{id}")                                                                              @GetMapping(value="/products/{id}")
+    String getProductById(@PathVariable ("id") String id);                                                           String getProductById(@PathVariable ("id") String id);
+}                                                                                                              }
+
+
+
+====================================================================================================================================================================================================================================================
+INTERVIEW QUESTIONS: 
+
+Service Registration doubts: 
+
+1. How does Eureka Server know whether a client is UP or DOWN?
+2. Where and how the data is stored?
+3. What if Eureka Server itself goes down? Is it a single point of failure. 
+
+Discovery Doubts: 
+
+4. It can cause latency issues, as each call now required 2 hops, first it has to invoke Eureka Server and then the actual call. 
+5. What if the local cache is stale? Can this lead to calling a dead instance?  
+
+=====================================================================================================================================================================================================================================================
+
+                                        1. How does Eureka Server know whether a client is UP or DOWN?
+                                                                        |                               
+                                                                        |
+                      ----------------------------------------------------------------------------------------------------
+                      |                                                                                                  |
+Through Client de-registration request                                                                       Through Client Heart Beat
+- When client application is gracefully shutdown, then eureka client sends the                        - Eureka Client periodically sends the Heart Beat to the Eureka Server.  
+  de-registration request to Eureka Server, it mark client status as DOWN.                            - Lets say, if client shut down without sending any de-registration request (because of Network issues).
+                                                                                                      - then Eureka server wait for the heart beat from the Client for a particular interval (decided at the time
+                                                                                                        of registration) and if no Heart Beat received within that time interval, it remove the client instance itself.  
+                                                                                                      - It'll consider it as dead.
+
+                                                                                                                                    Client (Product-Service) application.properties: 
+                                                                                                                                    // add these new configurations  
+
+                                                                                                      #every 60 seconds client will send the heart beat to server
+                                                                                                      eureka.instance.lease.renewal-interval-in-seconds=60 -----------> After this much seconds, client will send the new heart beat to server. Default time is 30 sec. 
+
+                                                                                                      #telling server to wait this much time, if no heart beat received in this time, then remove  me. 
+                                                                                                      #for testing, keep it less than lease-renewal-interval 
+                                                                                                      eureka.instance.lease-expiration-duration-in-seconds=5 -------------> Telling server to wait only this much time for the heart beat. After that, you can remove it 
+                                                                                                                                                                            from the list. Default time is 90 sec. 
+                                                                                                    
+                                                                                                                                    Eureka Server application.properties
+                                                                                                                                    
+                                                                                                      #by default Server do not remove the client, even heart beat is missed. 
+                                                                                                      #so we need to turn OFF. And allow the server to remove if client heart beat miss. 
+                                                                                                      eureka.server.enable-self-preservation=false ---------> Allowing server to remove beat is heart beat is not received.  
+
+                                                                                                      #how frequently eviction task runs 
+                                                                                                      eureka.server.eviction-interval-timer-ms=6000 -------------> How often, server check for dead instances.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2. How does Eureka Server stores the data?
+- Eureka Server only stores the data in-memory: Map<String, Lease<InstanceInfo>>
+- Key: appName/instanceId 
+  ex: 
+  PRODUCT-SERVICE/192.157.2.27:product-service:8082 
+- value: InstanceInfo object 
+        - Instance ID 
+        - App name 
+        - IP address 
+        - Host name 
+        - Port 
+        - Status (UP, DOWN)
+        - Last renewed timestamp 
+        - Lease duration etc.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. What if Eureka Server itself goes down? Is it a single point of failure? 
+- Yes, a Single Eureka Server is a Single point of failure, if it goes down. 
+- Usually, 3 nodes cluster is used. 
+
+Say, we have 3 Eureka Server on different machine or container: 
+    - eureka-1 at port 8761
+    - eureka-2 at port 8762
+    - eureka-3 at port 8763 
+- Now, each Server is a client too. As they have to register themselves, fetch the registry, replicate changes.  
+
+application.properties for eureka server 1:
+
+spring.application.name = eureka-server
+server.port = 8761
+eureka.instance.hostname = localhost
+eureka.client.register-with-eureka = true 
+eureka.client.fetch-registry = true. 
+eureka.client.service-url.defaultZone = http://localhost:8762/eureka/, http://localhost:8763/eureka/
+
+application.properties for eureka server 2:
+
+spring.application.name = eureka-server
+server.port = 8762
+eureka.instance.hostname = localhost
+eureka.client.register-with-eureka = true 
+eureka.client.fetch-registry = true. 
+eureka.client.service-url.defaultZone = http://localhost:8761/eureka/, http://localhost:8763/eureka/
+
+
+application.properties for eureka server 3:
+
+spring.application.name = eureka-server
+server.port = 8763
+eureka.instance.hostname = localhost
+eureka.client.register-with-eureka = true 
+eureka.client.fetch-registry = true. 
+eureka.client.service-url.defaultZone = http://localhost:8761/eureka/, http://localhost:8762/eureka/
+ 
+
+And in Client application.properties: 
+
+eureka.client.service-url.defaultZone = http://eureka-1:8761/eureka, http://eureka-1:8762/eureka, http://eureka-1:8763/eureka 
+
+- Now even if 1 server is down, it will not impact the client availability. 
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4. It can cause latency issues, as each call now required 2 hops, first it has to invoke Eureka Server and then the actual call.
+- It can cause latency issue, as each call now required 2 hops, first it has to involve Eureka Server and then the actual call. 
+- Eureka Sever does not get called for the every request. 
+- At startup, Client say (order-service) fetch the registry 
+            eureka.client.fetch-registry=true 
+- And Cache it locally, all future request, uses this local copy to find the instance. 
+- We can control this with config like below, after every 30 sec client will refresh its cache copy: 
+            eureka.client.registry-fetch-interval-seconds = 30
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5. What if the local cache is stale? Can this lead to calling a dead instace?
+- It's a valid scenario and you can say it's a trade off. 
+
+                        Call Product Instance 1  ----------> (This call will ultimately fail, till cache is not refreshed with latest data.)
+        Order-Service  ----------------------------->  Product-Service 
